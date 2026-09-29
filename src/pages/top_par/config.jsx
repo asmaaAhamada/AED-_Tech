@@ -1,15 +1,14 @@
 // src/config/navConfig.js
-import logo from '../../assets/logo.jpeg'
-const navConfig = {
-  // اسم العلامة التجارية بطريقة منسقة (AED باللون الذهبي و Tech بالأبيض)
+
+import logo from '../../assets/logo.jpeg';
+
+export const navConfig = (t) => ({
   brandName: (
     <span>
       <span style={{ color: "#E3B156" }}>AED</span> TECH
     </span>
   ),
-  brandTag: "AUTOMATE. GROW. SCALE.",
-
-  // مكان اللوغو
+  brandTag: t('nav.brandTag'),
   logo: (
     <img
       src={logo}
@@ -17,30 +16,20 @@ const navConfig = {
       style={{ height: 28, width: "auto" }}
     />
   ),
-
   navItems: [
-    { label: "Home", path: "/" },
-    { label: "Solutions", path: "/solutions" },
-    { label: "Platform", path: "/platform" },
-    { label: "Ecosystem", path: "/ecosystem" },
-    { label: "Services", path: "/services" },
-    { label: "Vision", path: "/vision" },
-    { label: "Contact", path: "/contact" },
+    { label: t('nav.home'), path: "/" },
+    { label: t('nav.solutions'), path: "/solutions" },
+    { label: t('nav.platform'), path: "/platform" },
+    { label: t('nav.ecosystem'), path: "/ecosystem" },
+    { label: t('nav.services'), path: "/services" },
+    { label: t('nav.vision'), path: "/vision" },
+    { label: t('nav.contact'), path: "/contact" },
   ],
-
-  cta: { label: "START A PROJECT", path: "/contact" },
-
+  cta: { label: t('nav.cta'), path: "/contact" },
+  statusText: t('nav.status'),
   showStatusBar: true,
-
-  // خيارات اللغة المضافة لاستخدامها في النافبار
   locales: [
     { code: "en", label: "EN" },
     { code: "ar", label: "AR" },
   ],
-  activeLocale: "en",
-  onLocaleChange: (localeCode) => {
-    console.log("Locale changed to:", localeCode);
-  },
-};
-
-export default navConfig;
+});

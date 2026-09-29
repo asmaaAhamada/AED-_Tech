@@ -1,6 +1,7 @@
 // src/pages/common_page/ModulesSection.jsx
 import { useRef, useEffect } from "react";
 import { Box, Container, Typography, Grid } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const palette = {
   bg: "#0E1B2E",
@@ -13,7 +14,7 @@ const palette = {
 
 const fontMono = "'IBM Plex Mono', 'Courier New', monospace";
 
-function ModuleCard({ mod, index }) {
+function ModuleCard({ mod, index, isRtl }) {
   const cardRef = useRef(null);
 
   useEffect(() => {
@@ -50,6 +51,7 @@ function ModuleCard({ mod, index }) {
         flexDirection: "column",
         bgcolor: "rgba(255,255,255,0.02)",
         cursor: "default",
+        textAlign: isRtl ? "right" : "left",
         "&:hover": {
           transform: "translateY(-6px)",
           borderColor: palette.accent,
@@ -58,7 +60,8 @@ function ModuleCard({ mod, index }) {
         "&:hover .module-title": { color: palette.accent },
       }}
     >
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 2 }}>
+      {/* صف الكود + الأيقونة — direction:"ltr" ثابت لأن MOD_01 كود تقني، ما بينعكس */}
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 2, direction: "ltr" }}>
         <Typography sx={{ color: palette.muted, fontFamily: fontMono, fontSize: "0.68rem", letterSpacing: "0.06em" }}>
           {mod.code}
         </Typography>
@@ -77,7 +80,8 @@ function ModuleCard({ mod, index }) {
       </Typography>
 
       {mod.badge && (
-        <Box sx={{ display: "flex", justifyContent: "space-between", borderTop: `1px solid ${palette.border}`, pt: 1.5 }}>
+        // صف Label: Value — direction:"ltr" حتى ترتيب الليبل والقيمة يضل ثابت (نفس منطق GridSection Stats)
+        <Box sx={{ display: "flex", justifyContent: "space-between", borderTop: `1px solid ${palette.border}`, pt: 1.5, direction: "ltr" }}>
           <Typography sx={{ color: palette.muted, fontSize: "0.68rem", letterSpacing: "0.04em" }}>
             {mod.badge.label}
           </Typography>
@@ -91,6 +95,8 @@ function ModuleCard({ mod, index }) {
 }
 
 export default function ModulesSection({ config }) {
+  const { i18n } = useTranslation();
+  const isRtl = i18n.language === "ar";
   const { eyebrow = "", title = "", subtitle = "", modules = [] } = config || {};
 
   const sectionRef = useRef(null);
@@ -131,10 +137,11 @@ export default function ModulesSection({ config }) {
           </Typography>
         )}
 
-        <Grid container spacing={2.5} sx={{ textAlign: "left" }}>
+        {/* شلنا textAlign:"left" الثابتة — هلق كل كارد بيتحكم بمحاذاته بنفسه حسب isRtl */}
+        <Grid container spacing={2.5}>
           {modules.map((mod, i) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={mod.code}>
-              <ModuleCard mod={mod} index={i} />
+              <ModuleCard mod={mod} index={i} isRtl={isRtl} />
             </Grid>
           ))}
         </Grid>

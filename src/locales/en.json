@@ -1,0 +1,182 @@
+{
+  "nav": {
+    "brandTag": "AUTOMATE. GROW. SCALE.",
+    "home": "Home",
+    "solutions": "Solutions",
+    "platform": "Platform",
+    "ecosystem": "Ecosystem",
+    "services": "Services",
+    "vision": "Vision",
+    "contact": "Contact",
+    "cta": "START A PROJECT",
+    "status": "SYSTEM ACTIVE // LATENCY 12MS"
+  },
+  "home": {
+    "badgeText": "AED TECH // DIGITAL BUSINESS INFRASTRUCTURE",
+    "headlineStart": "TURN EVERY CUSTOMER INTERACTION",
+    "headlineHighlight": "INTO EXPONENTIAL GROWTH.",
+    "subtitle": " Much more than just a traditional digital platform. An integrated digital infrastructure and real-time operational business intelligence.",
+    "primaryCta": "EXPLORE ARCHITECTURE",
+    "secondaryCta": "LAUNCH COMMAND DEMO"
+  }, "grid": {
+    "header": {
+      "label": "AED Tech_GRAPH_ROUTER // NODE_NETWORK_v1.0",
+      "description": "Real-Time Event Topology: Client Interaction to Cloud Platform",
+      "metrics": [
+        { "label": "CONNECTIONS", "value": "100% OPERATIONAL" },
+        { "label": "TELEMETRY LATENCY", "value": "< 8ms" },
+        { "label": "THROUGHPUT", "value": "12,000 TX/SEC" }
+      ]
+    },
+    "centerNode": {
+      "title": "CLIENT",
+      "subtitle": "CORE RECORD"
+    },
+    "topNodes": [
+      { "title": "CLIENT ACCESS", "subtitle": "SECURE ENTRY POINT" },
+      { "title": "SERVICE CATALOG", "subtitle": "REAL-TIME OFFERINGS" },
+      { "title": "RETENTION ENGINE", "subtitle": "LOYALTY & REWARDS" }
+    ],
+    "bottomNodes": [
+      { "title": "WORKFLOW AUTOMATION", "subtitle": "PROCESS & SCHEDULING" },
+      { "title": "RELATIONSHIP ENGINE", "subtitle": "RETENTION & FOLLOW-UP" },
+      { "title": "BUSINESS INTELLIGENCE", "subtitle": "REPORTING & INSIGHTS" }
+    ],
+    "stats": [
+      { "label": "AVERAGE EFFICIENCY GAIN", "value": "+42.0%", "note": "Automated workflows" },
+      { "label": "DATA CAPTURE RATE", "value": "80.0%", "note": "Zero friction onboarding" },
+      { "label": "AVERAGE VALUE INCREASE", "value": "+18.0%", "note": "Smarter recommendations" },
+      { "label": "DEPLOYMENT SPEED", "value": "< 72 HRS", "note": "Fast turnkey setup" }
+    ]
+  }
+, "modules": {
+    "eyebrow": "SYSTEM ARCHITECTURE // FULL SUITE",
+    "title": "One Platform. Every Client Touchpoint.",
+    "subtitle": "Twelve interconnected modules designed to deploy independently or form a complete operating system across any service-based business.",
+    "items": [
+      { "code": "MOD_01", "title": "Digital Service Catalog", "description": "Sub-second rendering of your services or products, with instant updates, multi-language support, and rich imagery.", "badgeLabel": "LOAD TIME", "badgeValue": "< 320ms" },
+      { "code": "MOD_02", "title": "Contactless Access Gateway", "description": "Zero-app instant access via link or QR code. Secure, location-aware tokens prevent misuse.", "badgeLabel": "INSTALL REQ", "badgeValue": "ZERO APP" },
+      { "code": "MOD_03", "title": "Unified Client Profile", "description": "Consent-first client records across every visit. Tracks preferences, history, and engagement seamlessly.", "badgeLabel": "COMPLIANCE", "badgeValue": "GDPR READY" },
+      { "code": "MOD_04", "title": "Smart Offers Engine", "description": "Dynamic perks and promotions that trigger based on client behavior, timing, and engagement level.", "badgeLabel": "UPLIFT", "badgeValue": "+20.0%" },
+      { "code": "MOD_05", "title": "Virtual Queue & Booking Flow", "description": "Wait-time prediction with automated alerts, pre-booking, and cancellation handling.", "badgeLabel": "ACCURACY", "badgeValue": "95.0%" },
+      { "code": "MOD_06", "title": "Appointment Manager", "description": "Scheduling controller with pacing, confirmations, special notes, and capacity optimization.", "badgeLabel": "NO-SHOW DROP", "badgeValue": "-60%" },
+      { "code": "MOD_07", "title": "Automated Re-engagement", "description": "Automated trigger system for inactive clients. Sends timed, personalized outreach without manual effort.", "badgeLabel": "RETURN RATE", "badgeValue": "3.0x AVG" },
+      { "code": "MOD_08", "title": "Business Intelligence Dashboard", "description": "Real-time performance analysis, activity patterns, and client behavior trends.", "badgeLabel": "REFRESH", "badgeValue": "LIVE" },
+      { "code": "MOD_09", "title": "Systems & Software Connectors", "description": "Bi-directional sync with the tools you already use — booking systems, payment platforms, and internal databases.", "badgeLabel": "CONNECTORS", "badgeValue": "50+ READY" },
+      { "code": "MOD_10", "title": "Executive Command Center", "description": "Multi-location live overview for owners, managers, and stakeholders across every site.", "badgeLabel": "AGGREGATION", "badgeValue": "GLOBAL" },
+      { "code": "MOD_11", "title": "Feedback & Reputation Hub", "description": "Automated post-service survey dispatch with intelligent sentiment analysis and instant review routing.", "badgeLabel": "SATISFACTION", "badgeValue": "98.4%" },
+      { "code": "MOD_12", "title": "Omnichannel Communication Gateway", "description": "Centralized messaging matrix syncing WhatsApp, SMS, and email touchpoints into a unified thread.", "badgeLabel": "DELIVERY RATE", "badgeValue": "99.9%" }
+    ]
+  }
+,
+
+  
+  "automation": {
+    "eyebrow": "AUTONOMOUS OPERATIONS GRAPH",
+    "title": "From Raw Client Activity to Automated Outcome.",
+    "subtitle": "Design multi-condition logic that reacts in milliseconds to client actions, inactivity periods, and engagement thresholds.",
+    "steps": [
+      { "key": "trigger", "variant": "default", "label": "TRIGGER EVENT", "title": "Client Accesses Service", "description": "Access profile resolved in < 10ms" },
+      { "key": "ingestion", "variant": "default", "label": "DATA INGESTION", "title": "Activity Logged", "description": "Interaction value recorded: 620" },
+      { "key": "decision", "variant": "decision", "label": "DECISION GATE", "title": "30 Days Without Activity?", "description": "", "pill": "CONDITION MET" },
+      { "key": "action", "variant": "action", "label": "AUTOMATED ACTION", "title": "Re-engagement Offer", "description": "Direct automated invitation" },
+      { "key": "outcome", "variant": "outcome", "label": "COMMERCIAL OUTCOME", "title": "Client Re-engaged", "description": "Value re-captured: 850" }
+    ],
+    "footer": {
+      "pipelineId": "PIPE_AUTO_0001X",
+      "stats": [
+        { "label": "SUCCESSFUL RUNS", "value": "12,400 EXECUTIONS" },
+        { "label": "CONVERSION RATE", "value": "38.0%" }
+      ]
+    }
+  }
+  ,
+  
+  "sectors": {
+    "eyebrow": "SPECIALIZATIONS",
+    "title": "Architected for High-Impact Service Businesses",
+    "subtitle": "Configurable workflow presets and client interaction models tuned to how each business actually operates.",
+    "resultLabel": "RESULT",
+    "items": [
+      { "key": "single", "title": "Single-Location Businesses", "description": "Fast setup, simple management, and a clean digital presence for owner-operated businesses.", "result": "+30% CLIENT RETENTION" },
+      { "key": "multi", "title": "Multi-Location Brands", "description": "Centralized control across every branch, with consistent branding and unified reporting.", "result": "+45% OPERATIONAL VISIBILITY" },
+      { "key": "premium", "title": "Premium & Boutique Services", "description": "Refined, brand-first experiences for high-touch, appointment-based, or membership-style businesses.", "result": "95% CLIENT SATISFACTION" },
+      { "key": "popup", "title": "Pop-Ups & Temporary Activations", "description": "Fast deployment for short-term locations, events, and seasonal activations with instant lead capture.", "result": "5x FASTER SETUP" }
+    ]
+  },
+  "practiceAreas": {
+    "eyebrow": "ENGINEERING PRACTICE",
+    "title": "Enterprise Digital Architecture & Delivery",
+    "description": "We operate as both a proprietary platform and a digital engineering team delivering custom infrastructure for clients across every service industry.",
+    "items": [
+      { "key": "cloud", "eyebrow": "PRACTICE 01 // ARCHITECTURE", "title": "Backend & Cloud Systems", "description": "Microservices built for scale, distributed across reliable cloud infrastructure with strong operational guarantees.", "tags": ["Modern Stack", "Streaming Data", "Cloud Hosting"] },
+      { "key": "mobile", "eyebrow": "PRACTICE 02 // INTERFACE", "title": "High-Speed Client Apps", "description": "Interfaces that load fast without app downloads, with smooth interactions and responsive design across devices.", "tags": ["Zero-Install Web App", "Fast Load Times", "Touch Optimized"] },
+      { "key": "palette", "eyebrow": "PRACTICE 03 // HUMAN FACTORS", "title": "Premium UI/UX Design", "description": "Custom design systems tailored to your brand identity, built for clarity, trust, and a premium feel.", "tags": ["Custom Design Systems", "Multi-Language Support", "Brand-First Aesthetic"] },
+      { "key": "hub", "eyebrow": "PRACTICE 04 // CONNECTIVITY", "title": "Systems & Hardware Bridge", "description": "Universal middleware connecting your existing tools, hardware, and internal systems directly to the digital layer.", "tags": ["Device Sync", "Payment Integration", "Hardware Agnostic"] },
+      { "key": "autograph", "eyebrow": "PRACTICE 05 // AUTOMATION", "title": "Growth & CRM Pipelines", "description": "Behavior-driven re-engagement flows orchestrated over messaging channels and personalized campaigns.", "tags": ["Messaging APIs", "Dynamic Triggers", "Lifetime Value Focus"] },
+      { "key": "security", "eyebrow": "PRACTICE 06 // GOVERNANCE", "title": "Data Security & Compliance", "description": "Built to meet regional and international data protection standards, with end-to-end encrypted storage.", "tags": ["Data Protection Standards", "Secure Storage", "Compliance Ready"] }
+    ]
+  },
+  "manifesto": {
+    "eyebrow": "THE OPERATING MANIFESTO",
+    "tagline": "AUTOMATE. GROW. RETAIN.",
+    "quote": "We are not building another static digital tool. We are engineering the permanent digital relationship layer between modern service businesses and the clients who define their value.",
+    "pillars": ["SOVEREIGN ARCHITECTURE", "ZERO DISPOSABILITY", "ENGINEERED TO SCALE"]
+  },
+  "footer": {
+    "logoText": "AED TECH",
+    "subLogoText": "TECHNOLOGY & SALES SOLUTIONS",
+    "brandDescription": "Sovereign enterprise infrastructure and algorithmic sales architectures engineered for high-performance capital markets, institutional platforms, and global technology ecosystems.",
+    "copyright": "© 2026 AED TECH. ALL RIGHTS RESERVED.",
+    "columns": [
+      { "title": "SOLUTIONS", "links": ["Enterprise CRM", "Algorithmic Sales", "Omnichannel Retention", "Data Pipelines"] },
+      { "title": "PLATFORM", "links": ["Core Architecture", "Integrations Matrix", "Developer APIs", "Telemetry & SLA"] },
+      { "title": "GOVERNANCE & TRUST", "links": ["Compliance Directives", "Privacy Architecture", "SOC2 Type II & ISO/IEC", "Enterprise Advisory"] }
+    ]
+  }
+
+,
+
+  "contact": {
+    "badgeLabel": "CONFIDENTIAL CONSULTATION",
+    "title": "Ready to Build Smarter Client Infrastructure?",
+    "description": "Schedule a session with our systems team. We review how your business runs today and map out the right setup for your goals.",
+    "primaryCta": {
+      "label": "Start a Project"
+    },
+    "secondaryCta": {
+      "label": "Schedule Demo"
+    },
+    "trustNotes": [
+      "2-Hour Response Time",
+      "NDA Available on Request"
+    ],
+    "formTitle": "Direct Priority Contact",
+    "formSubtitle": "Connect directly with our team",
+    "fields": {
+      "name": {
+        "label": "YOUR NAME",
+        "placeholder": "e.g. Jordan Smith"
+      },
+      "email": {
+        "label": "WORK EMAIL",
+        "placeholder": "you@company.com"
+      },
+      "businessType": {
+        "label": "BUSINESS TYPE & LOCATIONS",
+        "options": [
+          "Single Location Business",
+          "Multi-Location Business (2-4 sites)",
+          "Multi-Location Business (5+ sites)",
+          "Not Sure Yet"
+        ]
+      }
+    },
+    "submitLabel": "Request Consultation",
+    "formTrustBadges": [
+      "ISO 27001",
+      "GDPR Compliant",
+      "Secure by Design"
+    ]
+  }
+}

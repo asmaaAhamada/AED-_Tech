@@ -1,21 +1,13 @@
 import { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
-  AppBar,
-  Toolbar,
-  Box,
-  Typography,
-  Button,
-  IconButton,
-  Drawer,
-  List,
-  ListItemButton,
-  ListItemText,
-  Divider,
-  useMediaQuery,
+  AppBar, Toolbar, Box, Typography, Button, IconButton, Drawer,
+  List, ListItemButton, ListItemText, Divider, useMediaQuery,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import { useTranslation } from "react-i18next";
+import { navConfig } from "./config";
 
 const palette = {
   bg: "#0B1626",
@@ -30,27 +22,22 @@ const palette = {
 
 const fontMono = "'IBM Plex Mono', 'Courier New', monospace";
 
-export default function Navbar({ config }) {
-  const {
-    brandName = "AED TECH",
-    brandTag = "AUTOMATE. GROW. RETAIN.",
-    logo = null,
-    navItems = [],
-    cta = { label: "START A PROJECT", path: "/contact" },
-    showStatusBar = true,
-    statusText = "SYSTEM ACTIVE // LATENCY 12MS",
-    locales = [
-      { code: "en", label: "EN" },
-      { code: "ar", label: "AR" },
-    ],
-    activeLocale = "en",
-    onLocaleChange = () => {},
-  } = config || {};
+export default function Navbar() {
+  const { t, i18n } = useTranslation();
+  const config = navConfig(t);
+  const isRtl = i18n.language === "ar";
+
+  const { brandName, brandTag, logo, navItems, cta, locales } = config;
+
+  // ترتيب عناصر التنقل يعكس بالعربي فقط — اللوغو ثابت أقصى اليسار دايماً
+  const displayNavItems = isRtl ? [...navItems].reverse() : navItems;
 
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width:960px)");
   const location = useLocation();
+
+  const handleLanguageChange = (code) => i18n.changeLanguage(code);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -74,8 +61,10 @@ export default function Navbar({ config }) {
           transition: "all 0.25s ease",
         }}
       >
-        <Toolbar sx={{ minHeight: 72, px: { xs: 2, md: 4 } }}>
-          {/* Brand Name & Tagline */}
+        {/* direction: "ltr" هون بالضبط هو الحل — بيقفل ترتيب العناصر الفيزيائي
+            بغض النظر عن اتجاه الصفحة (rtl/ltr)، فاللوغو يضل مثبت أقصى اليسار دايماً */}
+        <Toolbar sx={{ minHeight: 72, px: { xs: 2, md: 4 }, direction: "ltr" }}>
+          {/* Brand — ثابت أقصى اليسار دايماً، بدون أي شرط isRtl */}
           <Box
             component={NavLink}
             to="/"
@@ -88,13 +77,12 @@ export default function Navbar({ config }) {
             }}
           >
             {logo}
-            <Box>
-              {/* تكبير كلمة AED TECH */}
+            <Box sx={{ direction: isRtl ? "rtl" : "ltr", textAlign: isRtl ? "right" : "left" }}>
               <Typography
                 sx={{
                   color: palette.text,
                   fontWeight: 900,
-                  fontSize: { xs: "1.3rem", md: "1.5rem" }, // تم تكبير حجم الخط هنا
+                  fontSize: { xs: "1.3rem", md: "1.5rem" },
                   letterSpacing: "0.06em",
                   lineHeight: 1,
                   fontFamily: fontMono,
@@ -109,7 +97,7 @@ export default function Navbar({ config }) {
                     fontFamily: fontMono,
                     fontSize: "0.82rem",
                     fontWeight: 600,
-                    letterSpacing: "0.14em",
+                    letterSpacing: isRtl ? "normal" : "0.14em",
                     lineHeight: 1.2,
                     mt: 0.5,
                   }}
@@ -120,16 +108,11 @@ export default function Navbar({ config }) {
             </Box>
           </Box>
 
-          {/* Desktop Navigation Links */}
+          {/* Desktop Nav — الترتيب معكوس بالعربي عبر displayNavItems */}
           {isDesktop && (
-            <Box sx={{ display: "flex", alignItems: "center", gap: 3.5, mr: 3 }}>
-              {navItems.map((item) => (
-                <NavLink
-                  key={item.path}
-                  to={item.path}
-                  end={item.path === "/"}
-                  style={{ textDecoration: "none" }}
-                >
+            <Box sx={{ display: "flex", alignItems: "center", gap: 3.5, mx: 3 }}>
+              {displayNavItems.map((item) => (
+                <NavLink key={item.path} to={item.path} end={item.path === "/"} style={{ textDecoration: "none" }}>
                   {({ isActive }) => (
                     <Box
                       sx={{
@@ -137,14 +120,12 @@ export default function Navbar({ config }) {
                         color: isActive ? palette.accent : palette.text,
                         fontSize: "0.85rem",
                         fontWeight: 700,
-                        letterSpacing: "0.06em",
-                        textTransform: "uppercase",
+                        letterSpacing: isRtl ? "normal" : "0.06em",
+                        textTransform: isRtl ? "none" : "uppercase",
                         fontFamily: fontMono,
                         py: 1,
                         transition: "color 0.2s ease",
-                        "&:hover": {
-                          color: palette.accent,
-                        },
+                        "&:hover": { color: palette.accent },
                         "&::after": {
                           content: '""',
                           position: "absolute",
@@ -155,9 +136,7 @@ export default function Navbar({ config }) {
                           backgroundColor: palette.accent,
                           transition: "width 0.25s ease-in-out",
                         },
-                        "&:hover::after": {
-                          width: "100%",
-                        },
+                        "&:hover::after": { width: "100%" },
                       }}
                     >
                       {item.label}
@@ -168,60 +147,15 @@ export default function Navbar({ config }) {
             </Box>
           )}
 
-          {/* Status Bar Badge */}
-          {/* {showStatusBar && statusText && isDesktop && (
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                border: `1px solid ${palette.border}`,
-                bgcolor: "rgba(8, 14, 24, 0.6)",
-                px: 2,
-                py: 0.7,
-                mr: 2,
-              }}
-            >
-              <Box
-                sx={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: "50%",
-                  bgcolor: palette.accent,
-                  boxShadow: `0 0 8px ${palette.accent}`,
-                }}
-              />
-              <Typography
-                sx={{
-                  color: palette.accent,
-                  fontFamily: fontMono,
-                  fontSize: "0.7rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.08em",
-                }}
-              >
-                {statusText}
-              </Typography>
-            </Box>
-          )} */}
-
-          {/* Language Switcher - مطابق للتصميم المطلوب */}
+          {/* Language Switcher */}
           {locales.length > 0 && isDesktop && (
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                border: `1px solid ${palette.border}`,
-                bgcolor: palette.bg,
-                mr: 2,
-              }}
-            >
+            <Box sx={{ display: "flex", alignItems: "center", border: `1px solid ${palette.border}`, bgcolor: palette.bg, mx: 2 }}>
               {locales.map((loc) => {
-                const isActive = activeLocale === loc.code;
+                const isActive = i18n.language === loc.code;
                 return (
                   <Box
                     key={loc.code}
-                    onClick={() => onLocaleChange(loc.code)}
+                    onClick={() => handleLanguageChange(loc.code)}
                     sx={{
                       cursor: "pointer",
                       fontFamily: fontMono,
@@ -232,9 +166,7 @@ export default function Navbar({ config }) {
                       color: isActive ? "#0B1626" : palette.muted,
                       bgcolor: isActive ? palette.accent : "transparent",
                       transition: "all 0.2s ease",
-                      "&:hover": {
-                        color: isActive ? "#0B1626" : palette.text,
-                      },
+                      "&:hover": { color: isActive ? "#0B1626" : palette.text },
                     }}
                   >
                     {loc.label}
@@ -244,36 +176,30 @@ export default function Navbar({ config }) {
             </Box>
           )}
 
-          {/* CTA Button */}
+          {/* CTA */}
           {cta && isDesktop && (
-           <Button
-  component={NavLink}
-  to={cta.path}
-  variant="outlined"
-  sx={{
-    borderColor: palette.accent,
-    color: palette.accent,
-    borderRadius: 0,
-    px: 2.5,
-    py: 0.8,
-    fontSize: "0.78rem",
-    fontWeight: 800,
-    fontFamily: fontMono,
-    letterSpacing: "0.08em",
-    transition: "all 0.2s ease",
-
-    "&:hover": {
-      borderColor: palette.accent,
-      color: palette.accent,
-      bgcolor: "rgba(227, 177, 86, 0.08)",
-    },
-  }}
->
-  {cta.label}
-</Button>
+            <Button
+              component={NavLink}
+              to={cta.path}
+              variant="outlined"
+              sx={{
+                borderColor: palette.accent,
+                color: palette.accent,
+                borderRadius: 0,
+                px: 2.5,
+                py: 0.8,
+                fontSize: "0.78rem",
+                fontWeight: 800,
+                fontFamily: fontMono,
+                letterSpacing: isRtl ? "normal" : "0.08em",
+                transition: "all 0.2s ease",
+                "&:hover": { borderColor: palette.accent, color: palette.accent, bgcolor: "rgba(227, 177, 86, 0.08)" },
+              }}
+            >
+              {cta.label}
+            </Button>
           )}
 
-          {/* Mobile Menu Button */}
           {!isDesktop && (
             <IconButton onClick={() => setMobileOpen(true)} sx={{ color: palette.text }}>
               <MenuIcon />
@@ -284,12 +210,10 @@ export default function Navbar({ config }) {
 
       {/* Mobile Drawer */}
       <Drawer
-        anchor="right"
+        anchor={isRtl ? "left" : "right"}
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
-        PaperProps={{
-          sx: { bgcolor: palette.bg, width: 280, borderLeft: `1px solid ${palette.border}` },
-        }}
+        PaperProps={{ sx: { bgcolor: palette.bg, width: 280, borderLeft: `1px solid ${palette.border}` } }}
       >
         <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
           <IconButton onClick={() => setMobileOpen(false)} sx={{ color: palette.text }}>
@@ -297,7 +221,7 @@ export default function Navbar({ config }) {
           </IconButton>
         </Box>
         <List>
-          {navItems.map((item) => (
+          {displayNavItems.map((item) => (
             <ListItemButton
               key={item.path}
               component={NavLink}
@@ -308,28 +232,41 @@ export default function Navbar({ config }) {
                 py: 1.5,
                 "&.active": {
                   color: palette.accent,
-                  borderLeft: `3px solid ${palette.accent}`,
+                  borderRight: isRtl ? `3px solid ${palette.accent}` : "none",
+                  borderLeft: !isRtl ? `3px solid ${palette.accent}` : "none",
                   bgcolor: "rgba(227, 177, 86, 0.05)",
                 },
               }}
             >
-              <ListItemText
-                primary={item.label}
-                primaryTypographyProps={{ fontSize: "0.9rem", fontWeight: 700, fontFamily: fontMono }}
-              />
+              <ListItemText primary={item.label} primaryTypographyProps={{ fontSize: "0.9rem", fontWeight: 700, fontFamily: fontMono }} />
             </ListItemButton>
           ))}
         </List>
         <Divider sx={{ borderColor: palette.border, my: 1 }} />
-        {cta && (
-          <Box sx={{ px: 2, mt: 2 }}>
+
+        <Box sx={{ px: 2, py: 1, display: "flex", gap: 1 }}>
+          {locales.map((loc) => (
             <Button
-              component={NavLink}
-              to={cta.path}
+              key={loc.code}
               fullWidth
-              variant="outlined"
-              sx={{ borderColor: palette.accent, color: palette.accent, borderRadius: 0, py: 1 }}
+              size="small"
+              onClick={() => handleLanguageChange(loc.code)}
+              sx={{
+                color: i18n.language === loc.code ? "#0B1626" : palette.text,
+                bgcolor: i18n.language === loc.code ? palette.accent : "transparent",
+                border: `1px solid ${palette.border}`,
+                fontFamily: fontMono,
+                "&:hover": { bgcolor: palette.accent, color: "#0B1626" },
+              }}
             >
+              {loc.label}
+            </Button>
+          ))}
+        </Box>
+
+        {cta && (
+          <Box sx={{ px: 2, mt: 1 }}>
+            <Button component={NavLink} to={cta.path} fullWidth variant="outlined" sx={{ borderColor: palette.accent, color: palette.accent, borderRadius: 0, py: 1 }}>
               {cta.label}
             </Button>
           </Box>

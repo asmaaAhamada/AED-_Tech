@@ -1,7 +1,9 @@
 import { useRef, useEffect } from "react";
 import { Box, Container, Typography, Button, Stack } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LanguageIcon from "@mui/icons-material/Language";
+import { useTranslation } from "react-i18next";
 
 const palette = {
   bg: "#0B1626",
@@ -15,6 +17,9 @@ const palette = {
 const fontMono = "'IBM Plex Mono', 'Courier New', monospace";
 
 export default function Hero({ config }) {
+  const { i18n } = useTranslation();
+  const isRtl = i18n.language === "ar";
+
   const {
     badgeText = "",
     headlineStart = "",
@@ -64,11 +69,10 @@ export default function Hero({ config }) {
       sx={{
         position: "relative",
         bgcolor: palette.bg,
-        pt: { xs: 4, md: 6 }, // تقليل البادينغ العلوي لرفع السيكشن وإلغاء المسافة مع الناف بار
+        pt: { xs: 4, md: 6 },
         pb: { xs: 8, md: 10 },
         textAlign: "center",
         overflow: "hidden",
-        // CSS Keyframes Animation للدخول
         "@keyframes fadeInUp": {
           "0%": { opacity: 0, transform: "translateY(25px)" },
           "100%": { opacity: 1, transform: "translateY(0)" },
@@ -119,12 +123,11 @@ export default function Hero({ config }) {
                 animation: "pulseGlow 2s infinite ease-in-out",
               }}
             />
-            {/* جعل النص أصفر وتصغير حجمه قليلاً */}
             <Typography
               sx={{
-                color: palette.accent, // تغيير لون الروابط/النص العلوي للأصفر
+                color: palette.accent,
                 fontSize: "0.7rem",
-                letterSpacing: "0.12em",
+                letterSpacing: isRtl ? "normal" : "0.12em",
                 fontFamily: fontMono,
                 fontWeight: 600,
                 textTransform: "uppercase",
@@ -135,44 +138,45 @@ export default function Hero({ config }) {
           </Box>
         )}
 
-        {/* Headline — تم تصغير الخط لتنسيق واستعراض متناسق */}
-        <Typography
-          sx={{
-            color: palette.text,
-            fontWeight: 700,
-            lineHeight: 1.15,
-            fontSize: { xs: "1.8rem", sm: "2.5rem", md: "3.2rem" }, // تصغير الحجم قليلاً
-            letterSpacing: "0.02em",
-            textTransform: "uppercase",
-            mb: 2.5,
-            maxWidth: 900,
-            mx: "auto",
-            animation: "fadeInUp 0.8s ease-out 0.2s forwards",
-            opacity: 0,
-          }}
-        >
-          {headlineStart}{" "}
-          <Box
-            component="span"
-            sx={{
-              color: palette.accent,
-              display: "block",
-              fontSize: { xs: "1.8rem", sm: "2.5rem", md: "3.2rem" }, // مطابقة حجم العنوان الرئيسي
-              fontWeight: 800,
-              textShadow: "0 0 25px rgba(227,177,86,0.3)",
-              mt: 0.5,
-            }}
-          >
-            {headlineHighlight}
-          </Box>
-        </Typography>
+        {/* Headline */}
+       {/* Headline */}
+<Typography
+  sx={{
+    color: palette.text,
+    fontWeight: 700,
+    lineHeight: 1.15,
+    fontSize: { xs: "1.8rem", sm: "2.5rem", md: "3.2rem" },
+    letterSpacing: isRtl ? "normal" : "0.02em",
+    textTransform: isRtl ? "none" : "uppercase",
+    mb: 2.5,
+    maxWidth: 900,
+    mx: "auto",
+    animation: "fadeInUp 0.8s ease-out 0.2s forwards",
+    opacity: 0,
+  }}
+>
+  {headlineStart}{" "}
+  <Box
+    component="span"
+    sx={{
+      color: palette.accent,
+      display: "block",
+      fontSize: { xs: "1.8rem", sm: "2.5rem", md: "3.2rem" },
+      fontWeight: 800,
+      textShadow: "0 0 25px rgba(227,177,86,0.3)",
+      mt: 0.5,
+    }}
+  >
+    {headlineHighlight}
+  </Box>
+</Typography>
 
         {/* Subtitle */}
         {subtitle && (
           <Typography
             sx={{
               color: palette.muted,
-              fontSize: { xs: "0.85rem", md: "0.95rem" }, // تصغير حجم النص الفرعي
+              fontSize: { xs: "0.85rem", md: "0.95rem" },
               lineHeight: 1.7,
               maxWidth: 720,
               mx: "auto",
@@ -186,94 +190,97 @@ export default function Hero({ config }) {
         )}
 
         {/* Action Buttons */}
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={2.5}
-          justifyContent="center"
-          alignItems="center"
-          sx={{
-            animation: "fadeInUp 0.8s ease-out 0.6s forwards",
-            opacity: 0,
-          }}
-        >
-          {primaryCta && (
-            <Box sx={{ position: "relative", width: { xs: "100%", sm: "auto" } }}>
-              <Box
-                sx={{
-                  position: "absolute",
-                  inset: -4,
-                  bgcolor: palette.accent,
-                  opacity: 0.35,
-                  blur: "12px",
-                  filter: "blur(12px)",
-                  borderRadius: 1,
-                  pointerEvents: "none",
-                }}
-              />
-              <Button
-                component="a"
-                href={primaryCta.href || "#architecture-section"}
-                onClick={(e) => handleSmoothScroll(e, primaryCta.href || "#architecture-section")}
-                variant="contained"
-                endIcon={<ArrowForwardIcon />}
-                sx={{
-                  position: "relative",
-                  bgcolor: palette.accent,
-                  color: "#0B1626",
-                  fontWeight: 800,
-                  fontSize: "0.85rem",
-                  letterSpacing: "0.05em",
-                  borderRadius: 1,
-                  px: 4,
-                  py: 1.5,
-                  width: { xs: "100%", sm: "auto" },
-                  textTransform: "uppercase",
-                  boxShadow: "0 0 20px rgba(227,177,86,0.4)",
-                  "&:hover": {
-                    bgcolor: palette.accent,
-                    boxShadow: "0 0 30px rgba(227,177,86,0.7)",
-                    transform: "translateY(-2px)",
-                  },
-                  transition: "all 0.3s ease",
-                }}
-              >
-                {primaryCta.label}
-              </Button>
-            </Box>
-          )}
+      {/* Action Buttons */}
+<Stack
+  direction={{ xs: "column", sm: "row" }}
+  spacing={2.5}
+  justifyContent="center"
+  alignItems="center"
+  sx={{
+    direction: "ltr", // ← يقفل ترتيب الزرين نفسهم، بيرجع يمشي على displayNavItems نفس فكرة النافبار
+    animation: "fadeInUp 0.8s ease-out 0.6s forwards",
+    opacity: 0,
+  }}
+>
+  {primaryCta && (
+    <Box sx={{ position: "relative", width: { xs: "100%", sm: "auto" } }}>
+      <Box
+        sx={{
+          position: "absolute",
+          inset: -4,
+          bgcolor: palette.accent,
+          opacity: 0.35,
+          filter: "blur(12px)",
+          borderRadius: 1,
+          pointerEvents: "none",
+        }}
+      />
+      <Button
+        component="a"
+        href={primaryCta.href || "#architecture-section"}
+        onClick={(e) => handleSmoothScroll(e, primaryCta.href || "#architecture-section")}
+        variant="contained"
+        endIcon={isRtl ? <ArrowBackIcon /> : <ArrowForwardIcon />}
+        sx={{
+          position: "relative",
+          direction: "ltr", // ← يقفل ترتيب الأيقونة جوا الزر نفسه
+          bgcolor: palette.accent,
+          color: "#0B1626",
+          fontWeight: 800,
+          fontSize: "0.85rem",
+          letterSpacing: isRtl ? "normal" : "0.05em",
+          borderRadius: 1,
+          px: 4,
+          py: 1.5,
+          width: { xs: "100%", sm: "auto" },
+          textTransform: isRtl ? "none" : "uppercase",
+          boxShadow: "0 0 20px rgba(227,177,86,0.4)",
+          "&:hover": {
+            bgcolor: palette.accent,
+            boxShadow: "0 0 30px rgba(227,177,86,0.7)",
+            transform: "translateY(-2px)",
+          },
+          transition: "all 0.3s ease",
+        }}
+      >
+        {primaryCta.label}
+      </Button>
+    </Box>
+  )}
 
-          {secondaryCta && (
-            <Button
-              component="a"
-              href={secondaryCta.href || "#demo"}
-              onClick={(e) => handleSmoothScroll(e, secondaryCta.href || "#demo")}
-              variant="outlined"
-              startIcon={<LanguageIcon />}
-              sx={{
-                borderColor: palette.border,
-                color: palette.text,
-                fontWeight: 700,
-                fontSize: "0.85rem",
-                letterSpacing: "0.05em",
-                borderRadius: 1,
-                px: 3.5,
-                py: 1.5,
-                width: { xs: "100%", sm: "auto" },
-                bgcolor: "rgba(15, 27, 46, 0.5)",
-                backdropFilter: "blur(4px)",
-                "&:hover": {
-                  borderColor: palette.accent,
-                  bgcolor: "rgba(227, 177, 86, 0.08)",
-                  boxShadow: "0 0 15px rgba(227,177,86,0.2)",
-                  transform: "translateY(-2px)",
-                },
-                transition: "all 0.3s ease",
-              }}
-            >
-              {secondaryCta.label}
-            </Button>
-          )}
-        </Stack>
+  {secondaryCta && (
+    <Button
+      component="a"
+      href={secondaryCta.href || "#demo"}
+      onClick={(e) => handleSmoothScroll(e, secondaryCta.href || "#demo")}
+      variant="outlined"
+      startIcon={<LanguageIcon />}
+      sx={{
+        direction: "ltr", // ← نفس الشي هون
+        borderColor: palette.border,
+        color: palette.text,
+        fontWeight: 700,
+        fontSize: "0.85rem",
+        letterSpacing: isRtl ? "normal" : "0.05em",
+        borderRadius: 1,
+        px: 3.5,
+        py: 1.5,
+        width: { xs: "100%", sm: "auto" },
+        bgcolor: "rgba(15, 27, 46, 0.5)",
+        backdropFilter: "blur(4px)",
+        "&:hover": {
+          borderColor: palette.accent,
+          bgcolor: "rgba(227, 177, 86, 0.08)",
+          boxShadow: "0 0 15px rgba(227,177,86,0.2)",
+          transform: "translateY(-2px)",
+        },
+        transition: "all 0.3s ease",
+      }}
+    >
+      {secondaryCta.label}
+    </Button>
+  )}
+</Stack>
       </Container>
     </Box>
   );

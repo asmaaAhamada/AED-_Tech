@@ -1,32 +1,62 @@
-// src/pages/common_page/contactConfig.js
-const contactConfig = {
-  badgeLabel: "CONFIDENTIAL CONSULTATION",
-  title: "Ready to Build Smarter Client Infrastructure?",
-  description:
-    "Schedule a session with our systems team. We review how your business runs today and map out the right setup for your goals.",
-  primaryCta: { label: "Start a Project" },
-  secondaryCta: { label: "Schedule Demo" },
-  trustNotes: ["2-Hour Response Time", "NDA Available on Request"],
+export const getContactConfig = (t) => {
+  const trustNotes = t("contact.trustNotes", {
+    returnObjects: true,
+    defaultValue: [],
+  });
 
-  formTitle: "Direct Priority Contact",
-  formSubtitle: "Connect directly with our team",
+  const businessTypeOptions = t("contact.fields.businessType.options", {
+    returnObjects: true,
+    defaultValue: [],
+  });
 
-  fields: {
-    name: { label: "YOUR NAME", placeholder: "e.g. Jordan Smith" },
-    email: { label: "WORK EMAIL", placeholder: "you@company.com" },
-    businessType: {
-      label: "BUSINESS TYPE & LOCATIONS",
-      options: [
-        "Single Location Business",
-        "Multi-Location Business (2-4 sites)",
-        "Multi-Location Business (5+ sites)",
-        "Not Sure Yet",
-      ],
+  const formTrustBadges = t("contact.formTrustBadges", {
+    returnObjects: true,
+    defaultValue: [],
+  });
+
+  return {
+    badgeLabel: t("contact.badgeLabel"),
+    title: t("contact.title"),
+    description: t("contact.description"),
+
+    primaryCta: {
+      label: t("contact.primaryCta.label"),
     },
-  },
 
-  submitLabel: "Request Consultation",
-  formTrustBadges: ["ISO 27001", "GDPR Compliant", "Secure by Design"],
+    secondaryCta: {
+      label: t("contact.secondaryCta.label"),
+    },
+
+    trustNotes: Array.isArray(trustNotes) ? trustNotes : [],
+
+    formTitle: t("contact.formTitle"),
+    formSubtitle: t("contact.formSubtitle"),
+
+    fields: {
+      name: {
+        label: t("contact.fields.name.label"),
+        placeholder: t("contact.fields.name.placeholder"),
+      },
+
+      email: {
+        label: t("contact.fields.email.label"),
+        placeholder: t("contact.fields.email.placeholder"),
+      },
+
+      businessType: {
+        label: t("contact.fields.businessType.label"),
+        options: Array.isArray(businessTypeOptions)
+          ? businessTypeOptions
+          : [],
+      },
+    },
+
+    submitLabel: t("contact.submitLabel"),
+
+    formTrustBadges: Array.isArray(formTrustBadges)
+      ? formTrustBadges
+      : [],
+  };
 };
 
-export default contactConfig;
+export default getContactConfig;

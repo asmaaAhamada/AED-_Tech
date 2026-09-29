@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { Box, Container, Typography, Grid, Stack } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const palette = {
   bg: "#060D17",
@@ -12,7 +13,7 @@ const palette = {
 
 const fontMono = "'IBM Plex Mono', 'Courier New', monospace";
 
-function NodeCard({ node, isActive, onClick }) {
+function NodeCard({ node, isActive, onClick, isRtl }) {
   return (
     <Box
       onClick={onClick}
@@ -30,7 +31,7 @@ function NodeCard({ node, isActive, onClick }) {
         backdropFilter: "blur(6px)",
         transition: "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
         boxShadow: isActive ? "0 0 20px rgba(227, 177, 86, 0.3)" : "none",
-        transform: isActive ? "translateX(-12px)" : "none",
+        transform: isActive ? `translateX(${isRtl ? "12px" : "-12px"})` : "none",
         "&:hover": {
           borderColor: palette.accent,
           bgcolor: "rgba(15, 28, 48, 0.85)",
@@ -38,7 +39,7 @@ function NodeCard({ node, isActive, onClick }) {
       }}
     >
       {node.icon && <Box sx={{ color: palette.accent, display: "flex" }}>{node.icon}</Box>}
-      <Box>
+      <Box sx={{ textAlign: isRtl ? "right" : "left" }}>
         <Typography sx={{ color: palette.accent, fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.02em" }}>
           {node.title}
         </Typography>
@@ -51,6 +52,8 @@ function NodeCard({ node, isActive, onClick }) {
 }
 
 export default function GridSection({ config }) {
+  const { i18n } = useTranslation();
+  const isRtl = i18n.language === "ar";
   const { header = null, centerNode = null, topNodes = [], bottomNodes = [], stats = [] } = config || {};
 
   const [activeCard, setActiveCard] = useState(null);
@@ -75,12 +78,9 @@ export default function GridSection({ config }) {
 
   return (
     <Box ref={sectionRef} sx={{ position: "relative", bgcolor: palette.bg, py: { xs: 6, md: 8 }, overflow: "hidden" }}>
-      {/* Glow Follow Effect */}
       <Box ref={glowRef} sx={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 1 }} />
 
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
-        
-        {/* Outer Grid Box (شبكة العمليات المحصورة) */}
         <Box
           sx={{
             position: "relative",
@@ -92,7 +92,6 @@ export default function GridSection({ config }) {
             mb: 4,
           }}
         >
-          {/* Inner Grid Pattern lines */}
           <Box
             sx={{
               position: "absolute",
@@ -104,35 +103,22 @@ export default function GridSection({ config }) {
             }}
           />
 
-          {/* SVG Diagram: Center Circle & Connecting Radial Lines */}
           <Box
             component="svg"
-            sx={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-              pointerEvents: "none",
-              zIndex: 1,
-            }}
+            sx={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 1 }}
           >
-            {/* Dashed Central Circle */}
             <circle cx="50%" cy="54%" r="170" stroke={palette.border} strokeWidth="1" fill="none" strokeDasharray="4 4" opacity="0.6" />
             <circle cx="50%" cy="54%" r="240" stroke={palette.border} strokeWidth="1" fill="none" opacity="0.25" />
-
-            {/* Connecting Lines from Center Card to Top 3 Nodes */}
             <line x1="50%" y1="54%" x2="16%" y2="30%" stroke={palette.border} strokeWidth="1" strokeDasharray="3 3" opacity="0.5" />
             <line x1="50%" y1="54%" x2="50%" y2="30%" stroke={palette.border} strokeWidth="1" strokeDasharray="3 3" opacity="0.5" />
             <line x1="50%" y1="54%" x2="84%" y2="30%" stroke={palette.border} strokeWidth="1" strokeDasharray="3 3" opacity="0.5" />
-
-            {/* Connecting Lines from Center Card to Bottom 3 Nodes */}
             <line x1="50%" y1="54%" x2="16%" y2="78%" stroke={palette.border} strokeWidth="1" strokeDasharray="3 3" opacity="0.5" />
             <line x1="50%" y1="54%" x2="50%" y2="78%" stroke={palette.border} strokeWidth="1" strokeDasharray="3 3" opacity="0.5" />
             <line x1="50%" y1="54%" x2="84%" y2="78%" stroke={palette.border} strokeWidth="1" strokeDasharray="3 3" opacity="0.5" />
           </Box>
 
-          <Box sx={{ position: "relative", zIndex: 2 }}>
-            {/* Header داخل البوكس */}
+          {/* ⬇⬇ direction: "ltr" هون على كل البوكس الداخلي — هيك ترتيب العناصر (Metrics, Nodes) بيضل ثابت بكل اللغات */}
+          <Box sx={{ position: "relative", zIndex: 2, direction: "ltr" }}>
             {header && (
               <Box sx={{ mb: 5 }}>
                 <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
@@ -142,7 +128,7 @@ export default function GridSection({ config }) {
                   </Typography>
                 </Stack>
                 {header.description && (
-                  <Typography sx={{ color: palette.muted, fontSize: "0.8rem", mb: 2 }}>
+                  <Typography sx={{ color: palette.muted, fontSize: "0.8rem", mb: 2, textAlign: isRtl ? "right" : "left" }}>
                     {header.description}
                   </Typography>
                 )}
@@ -161,7 +147,6 @@ export default function GridSection({ config }) {
               </Box>
             )}
 
-            {/* Top Nodes */}
             {topNodes.length > 0 && (
               <Grid container spacing={3.5} sx={{ mb: 5 }}>
                 {topNodes.map((node, i) => (
@@ -170,13 +155,13 @@ export default function GridSection({ config }) {
                       node={node}
                       isActive={activeCard === `top-${i}`}
                       onClick={() => setActiveCard(`top-${i}`)}
+                      isRtl={isRtl}
                     />
                   </Grid>
                 ))}
               </Grid>
             )}
 
-            {/* Center Node */}
             {centerNode && (
               <Box sx={{ display: "flex", justifyContent: "center", my: 5 }}>
                 <Box
@@ -192,11 +177,8 @@ export default function GridSection({ config }) {
                     backdropFilter: "blur(8px)",
                     cursor: "pointer",
                     transition: "all 0.35s ease",
-                    transform: activeCard === "center" ? "translateX(-12px)" : "none",
-                    "&:hover": {
-                      boxShadow: "0 0 40px rgba(227, 177, 86, 0.35)",
-                      transform: "scale(1.02)",
-                    },
+                    transform: activeCard === "center" ? `translateX(${isRtl ? "12px" : "-12px"})` : "none",
+                    "&:hover": { boxShadow: "0 0 40px rgba(227, 177, 86, 0.35)", transform: "scale(1.02)" },
                   }}
                 >
                   <Typography sx={{ color: palette.text, fontWeight: 800, fontSize: "1.1rem", letterSpacing: "0.05em" }}>
@@ -216,7 +198,6 @@ export default function GridSection({ config }) {
               </Box>
             )}
 
-            {/* Bottom Nodes */}
             {bottomNodes.length > 0 && (
               <Grid container spacing={3.5} sx={{ mt: 5 }}>
                 {bottomNodes.map((node, i) => (
@@ -225,6 +206,7 @@ export default function GridSection({ config }) {
                       node={node}
                       isActive={activeCard === `bottom-${i}`}
                       onClick={() => setActiveCard(`bottom-${i}`)}
+                      isRtl={isRtl}
                     />
                   </Grid>
                 ))}
@@ -233,30 +215,26 @@ export default function GridSection({ config }) {
           </Box>
         </Box>
 
-        {/* Stats Row (خارج بوكس الشبكة من الأسفل) */}
+        {/* Stats Row — نفس منطق direction:"ltr" حتى الترتيب ما ينعكس */}
         {stats.length > 0 && (
-          <Grid container spacing={3} sx={{ px: 1 }}>
+          <Grid container spacing={3} sx={{ px: 1, direction: "ltr" }}>
             {stats.map((stat, i) => (
-              <Grid item xs={6} md={3} key={i}>
+              <Grid item xs={6} md={3} key={i} sx={{ textAlign: isRtl ? "right" : "left" }}>
                 <Typography sx={{ color: palette.muted, fontSize: "0.65rem", fontFamily: fontMono, textTransform: "uppercase", letterSpacing: "0.03em", mb: 0.5 }}>
                   {stat.label}
                 </Typography>
-               <Typography
-  sx={{
-    color: String(stat.value).includes("+")
-      ? palette.accent
-      : palette.text,
-    fontWeight: 800,
-    fontSize: "1.6rem",
-    mb: 0.5
-  }}
->
-  {stat.value}
-</Typography>
+                <Typography
+                  sx={{
+                    color: String(stat.value).includes("+") ? palette.accent : palette.text,
+                    fontWeight: 800,
+                    fontSize: "1.6rem",
+                    mb: 0.5,
+                  }}
+                >
+                  {stat.value}
+                </Typography>
                 {stat.note && (
-                  <Typography sx={{ color: palette.muted, fontSize: "0.7rem" }}>
-                    {stat.note}
-                  </Typography>
+                  <Typography sx={{ color: palette.muted, fontSize: "0.7rem" }}>{stat.note}</Typography>
                 )}
               </Grid>
             ))}

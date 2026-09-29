@@ -6,11 +6,14 @@ import { Provider } from 'react-redux'
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material'
 import App from './App'
 import store from './store'
-
+import './locales/i18n';
 const theme = createTheme({
   palette: {
     mode: 'light'
-  }
+  },
+  typography: {
+    fontFamily: '"IBM Plex Sans", "IBM Plex Sans Arabic", sans-serif',
+  },
 })
 
 createRoot(document.getElementById('root')).render(

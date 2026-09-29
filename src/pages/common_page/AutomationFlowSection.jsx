@@ -1,12 +1,7 @@
 // src/pages/common_page/AutomationFlowSection.jsx
 import { useRef } from "react";
 import { Box, Container, Typography } from "@mui/material";
-// استيراد الأيقونات المناسبة لخطوات التدفق الأوتوماتيكي
-import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
-import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import SendIcon from "@mui/icons-material/Send";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { useTranslation } from "react-i18next";
 
 const palette = {
   bg: "#0E1B2E",
@@ -119,52 +114,11 @@ function FlowStep({ step }) {
   );
 }
 
-// أيقونات افتراضية لكل خطوة في حال عدم تمريرها عبر الـ config
-const defaultSteps = [
-  {
-    label: "TRIGGER EVENT",
-    title: "Customer Scans Table QR",
-    description: "Consent profile resolved in <10ms",
-    icon: <QrCodeScannerIcon fontSize="medium" />,
-  },
-  {
-    label: "POS INGESTION",
-    title: "Order Settlement",
-    description: "Basket value logged: AED 620",
-    icon: <ReceiptLongIcon fontSize="medium" />,
-  },
-  {
-    variant: "decision",
-    label: "DECISION GATE",
-    title: "30 Days Without Visit?",
-    description: "",
-    pill: "CONDITION MET",
-    icon: <AccessTimeIcon fontSize="medium" />,
-  },
-  {
-    variant: "action",
-    label: "AUTONOMOUS ACTION",
-    title: "VIP Recapture Perk",
-    description: "Direct WhatsApp VIP Invitation",
-    icon: <SendIcon fontSize="medium" />,
-  },
-  {
-    variant: "outcome",
-    label: "COMMERCIAL OUTCOME",
-    title: "Table Re-Booked",
-    description: "AED 850 Re-captured",
-    icon: <AttachMoneyIcon fontSize="medium" />,
-  },
-];
-
 export default function AutomationFlowSection({ config }) {
-  const {
-    eyebrow = "",
-    title = "",
-    subtitle = "",
-    steps = defaultSteps,
-    footer = null,
-  } = config || {};
+  const { i18n } = useTranslation();
+  const isRtl = i18n.language === "ar";
+
+  const { eyebrow = "", title = "", subtitle = "", steps = [], footer = null } = config || {};
 
   return (
     <Box sx={{ bgcolor: palette.bg, py: { xs: 8, md: 12 } }}>
@@ -193,7 +147,9 @@ export default function AutomationFlowSection({ config }) {
             py: { xs: 4, md: 5 },
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "flex-start", justifyContent: "center" }}>
+          {/* direction:"ltr" ثابت — هاد تسلسل عملية (Pipeline)، خطواته لازم تضل بنفس الترتيب المنطقي
+              (Trigger → Data → Decision → Action → Outcome) بغض النظر عن لغة الصفحة */}
+          <Box sx={{ display: "flex", alignItems: "flex-start", justifyContent: "center", direction: "ltr" }}>
             {steps.map((step, i) => (
               <Box key={i} sx={{ display: "flex", alignItems: "flex-start", flex: 1 }}>
                 <FlowStep step={step} />
@@ -213,6 +169,7 @@ export default function AutomationFlowSection({ config }) {
                 mt: 5,
                 pt: 3,
                 borderTop: `1px solid ${palette.border}`,
+                direction: "ltr", // ← حتى Pipeline ID والـ Stats يضلو بترتيب ثابت
                 textAlign: "left",
               }}
             >

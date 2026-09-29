@@ -1,6 +1,6 @@
-// src/pages/common_page/SectorsSection.jsx
 import { useRef, useEffect } from "react";
 import { Box, Container, Typography, Grid } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const palette = {
   bg: "#0E1B2E",
@@ -13,7 +13,7 @@ const palette = {
 
 const fontMono = "'IBM Plex Mono', 'Courier New', monospace";
 
-function SectorCard({ sector, index }) {
+function SectorCard({ sector, index, isRtl, resultLabel }) {
   const cardRef = useRef(null);
 
   useEffect(() => {
@@ -39,14 +39,14 @@ function SectorCard({ sector, index }) {
         "--delay": `${(index % 4) * 90}ms`,
         opacity: 0,
         transform: "translateY(24px)",
-        transition:
-          "opacity 0.5s ease var(--delay), transform 0.5s ease var(--delay), border-color 0.25s ease, box-shadow 0.25s ease",
+        transition: "opacity 0.5s ease var(--delay), transform 0.5s ease var(--delay), border-color 0.25s ease, box-shadow 0.25s ease",
         "&.is-visible": { opacity: 1, transform: "translateY(0)" },
         border: `1px solid ${palette.border}`,
         borderRadius: 2,
         p: 3,
         height: "100%",
         bgcolor: palette.surface,
+        textAlign: isRtl ? "right" : "left",
         "&:hover": {
           transform: "translateY(-6px)",
           borderColor: palette.accent,
@@ -82,7 +82,7 @@ function SectorCard({ sector, index }) {
       {sector.result && (
         <Box sx={{ borderTop: `1px solid ${palette.border}`, pt: 1.5 }}>
           <Typography sx={{ color: palette.accent, fontFamily: fontMono, fontSize: "0.68rem", letterSpacing: "0.04em" }}>
-            RESULT: {sector.result}
+            {resultLabel}: {sector.result}
           </Typography>
         </Box>
       )}
@@ -90,12 +90,10 @@ function SectorCard({ sector, index }) {
   );
 }
 
-/**
- * SectorsSection — قسم عام لعرض "نماذج الأعمال/الشرائح" اللي المنصة بتخدمها.
- * eyebrow / title / subtitle / sectors[] من config، بلا ربط بقطاع معين.
- */
 export default function SectorsSection({ config }) {
-  const { eyebrow = "", title = "", subtitle = "", sectors = [] } = config || {};
+  const { i18n } = useTranslation();
+  const isRtl = i18n.language === "ar";
+  const { eyebrow = "", title = "", subtitle = "", sectors = [], resultLabel = "RESULT" } = config || {};
 
   return (
     <Box sx={{ bgcolor: palette.bg, py: { xs: 8, md: 12 } }}>
@@ -116,10 +114,10 @@ export default function SectorsSection({ config }) {
           </Typography>
         )}
 
-        <Grid container spacing={2.5} sx={{ textAlign: "left" }}>
+        <Grid container spacing={2.5}>
           {sectors.map((sector, i) => (
             <Grid item xs={12} sm={6} md={3} key={i}>
-              <SectorCard sector={sector} index={i} />
+              <SectorCard sector={sector} index={i} isRtl={isRtl} resultLabel={resultLabel} />
             </Grid>
           ))}
         </Grid>
