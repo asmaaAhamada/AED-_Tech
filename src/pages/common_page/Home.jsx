@@ -1,9 +1,10 @@
-
 import { Box } from "@mui/material";
 import automationFlowConfig from "./automationFlowConfig";
 import AutomationFlowSection from "./AutomationFlowSection";
 import contactConfig from "./contactConfig";
 import ContactSection from "./ContactSection";
+import footerConfig from "./footerConfig";
+import FooterSection from "./FooterSection";
 import gridConfig from "./gridConfig";
 import GridSection from "./GridSection";
 import Hero from "./Hero";
@@ -63,6 +64,10 @@ export default function Home() {
           animation-delay: 1.05s;
         }
 
+        .home-section-9 {
+          animation-delay: 1.2s;
+        }
+
         @keyframes sectionReveal {
           from {
             opacity: 0;
@@ -118,8 +123,11 @@ export default function Home() {
         <section className="home-section home-section-8">
           <ContactSection config={contactConfig} />
         </section>
+
+        <section className="home-section home-section-9">
+          <FooterSection config={footerConfig} />
+        </section>
       </main>
     </>
   );
 }
-
