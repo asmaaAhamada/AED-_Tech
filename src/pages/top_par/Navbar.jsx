@@ -88,7 +88,7 @@ const themeIconColor = theme.palette.effects.themeIcon;
             بغض النظر عن اتجاه الصفحة (rtl/ltr)، فاللوغو يضل مثبت أقصى اليسار دايماً */}
         <Toolbar sx={{ minHeight: 72, px: { xs: 2, md: 4 }, direction: "ltr" }}>
           {/* Brand — ثابت أقصى اليسار دايماً، بدون أي شرط isRtl */}
-         <Box
+      <Box
   component={NavLink}
   to="/"
   sx={{
@@ -99,7 +99,41 @@ const themeIconColor = theme.palette.effects.themeIcon;
     mr: "auto",
   }}
 >
-  {logo}
+  {/* Premium Logo Box */}
+  <Box
+    sx={{
+      width: { xs: 48, md: 54 },
+      height: { xs: 48, md: 54 },
+
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+
+      bgcolor: colors.surface,
+
+      border: `1px solid ${colors.border}`,
+      borderRadius: "14px",
+
+      overflow: "hidden",
+
+      boxShadow: theme.shadows[4],
+
+      transition:
+        "transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease",
+
+      "&:hover": {
+        transform: "translateY(-2px)",
+        borderColor: colors.accent,
+        boxShadow: theme.shadows[8],
+      },
+
+      flexShrink: 0,
+    }}
+  >
+    {logo}
+  </Box>
+
+  
 
   <Box
     sx={{
@@ -125,9 +159,9 @@ const themeIconColor = theme.palette.effects.themeIcon;
         sx={{
           color: colors.muted,
           fontFamily: fontMono,
-          fontSize: "0.82rem",
+          fontSize: isRtl ? "0.92rem" : "0.72rem",
           fontWeight: 600,
-          letterSpacing: isRtl ? "normal" : "0.14em",
+          letterSpacing: isRtl ? "normal" : "0.11em",
           lineHeight: 1.2,
           mt: 0.5,
         }}

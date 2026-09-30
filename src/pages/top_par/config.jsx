@@ -10,11 +10,16 @@ export const navConfig = (t) => ({
   ),
   brandTag: t('nav.brandTag'),
   logo: (
-    <img
-      src={logo}
-      alt="logo"
-      style={{ height: 28, width: "auto" }}
-    />
+     <img
+    src={logo}
+    alt="AED TECH logo"
+    style={{
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      display: "block",
+    }}
+  />
   ),
   navItems: [
     { label: t('nav.home'), path: "/" },
