@@ -4,19 +4,21 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LanguageIcon from "@mui/icons-material/Language";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "@mui/material";
 
-const palette = {
-  bg: "#0B1626",
-  border: "#1E2D42",
-  accent: "#E3B156",
-  text: "#F5F7FA",
-  muted: "#9AA5B1",
-  glow: "rgba(227, 177, 86, 0.25)",
-};
 
-const fontMono = "'IBM Plex Mono', 'Courier New', monospace";
 
 export default function Hero({ config }) {
+  const theme = useTheme();
+
+  const colors = {
+  bg: theme.palette.background.default,
+  border: theme.palette.border.main,
+  accent: theme.palette.accent.main,
+  text: theme.palette.text.primary,
+  muted: theme.palette.text.secondary,
+};
+const fontMono = theme.typography.mono;
   const { i18n } = useTranslation();
   const isRtl = i18n.language === "ar";
 
@@ -33,21 +35,31 @@ export default function Hero({ config }) {
   const glowRef = useRef(null);
 
   // بقعة الضوء التفاعلية لـ Hero section
-  useEffect(() => {
-    const hero = heroRef.current;
-    const glow = glowRef.current;
-    if (!hero || !glow) return;
+ useEffect(() => {
+  const hero = heroRef.current;
+  const glow = glowRef.current;
 
-    const onMove = (e) => {
-      const rect = hero.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      glow.style.background = `radial-gradient(circle 350px at ${x}px ${y}px, rgba(227,177,86,0.14), transparent 80%)`;
-    };
+  if (!hero || !glow) return;
 
-    hero.addEventListener("mousemove", onMove);
-    return () => hero.removeEventListener("mousemove", onMove);
-  }, []);
+  const onMove = (e) => {
+    const rect = hero.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    glow.style.background = `radial-gradient(
+      circle 350px at ${x}px ${y}px,
+      ${theme.palette.effects.mouseGlow},
+      transparent 80%
+    )`;
+  };
+
+  hero.addEventListener("mousemove", onMove);
+
+  return () => {
+    hero.removeEventListener("mousemove", onMove);
+  };
+}, [theme]);
 
   // دالة التمرير السلس عند الضغط على الزر
   const handleSmoothScroll = (e, targetId) => {
@@ -68,7 +80,7 @@ export default function Hero({ config }) {
       ref={heroRef}
       sx={{
         position: "relative",
-        bgcolor: palette.bg,
+        bgcolor: colors.bg,
         pt: { xs: 4, md: 6 },
         pb: { xs: 8, md: 10 },
         textAlign: "center",
@@ -103,8 +115,8 @@ export default function Hero({ config }) {
               display: "inline-flex",
               alignItems: "center",
               gap: 1.2,
-              border: `1px solid ${palette.border}`,
-              bgcolor: "rgba(11,22,38,0.6)",
+              border: `1px solid ${colors.border}`,
+              bgcolor: theme.palette.effects.surfaceTranslucent,
               borderRadius: 1,
               px: 2.5,
               py: 0.8,
@@ -118,14 +130,14 @@ export default function Hero({ config }) {
                 width: 7,
                 height: 7,
                 borderRadius: "50%",
-                bgcolor: palette.accent,
-                boxShadow: `0 0 10px ${palette.accent}`,
+                bgcolor: colors.accent,
+                boxShadow: `0 0 10px ${colors.accent}`,
                 animation: "pulseGlow 2s infinite ease-in-out",
               }}
             />
             <Typography
               sx={{
-                color: palette.accent,
+                color: colors.accent,
                 fontSize: "0.7rem",
                 letterSpacing: isRtl ? "normal" : "0.12em",
                 fontFamily: fontMono,
@@ -142,7 +154,7 @@ export default function Hero({ config }) {
        {/* Headline */}
 <Typography
   sx={{
-    color: palette.text,
+    color: colors.text,
     fontWeight: 700,
     lineHeight: 1.15,
     fontSize: { xs: "1.8rem", sm: "2.5rem", md: "3.2rem" },
@@ -159,11 +171,11 @@ export default function Hero({ config }) {
   <Box
     component="span"
     sx={{
-      color: palette.accent,
+      color: colors.accent,
       display: "block",
       fontSize: { xs: "1.8rem", sm: "2.5rem", md: "3.2rem" },
       fontWeight: 800,
-      textShadow: "0 0 25px rgba(227,177,86,0.3)",
+     textShadow: `0 0 25px ${theme.palette.effects.accentGlowStrong}`,
       mt: 0.5,
     }}
   >
@@ -175,7 +187,7 @@ export default function Hero({ config }) {
         {subtitle && (
           <Typography
             sx={{
-              color: palette.muted,
+              color: colors.muted,
               fontSize: { xs: "0.85rem", md: "0.95rem" },
               lineHeight: 1.7,
               maxWidth: 720,
@@ -208,7 +220,7 @@ export default function Hero({ config }) {
         sx={{
           position: "absolute",
           inset: -4,
-          bgcolor: palette.accent,
+          bgcolor: colors.accent,
           opacity: 0.35,
           filter: "blur(12px)",
           borderRadius: 1,
@@ -224,8 +236,8 @@ export default function Hero({ config }) {
         sx={{
           position: "relative",
           direction: "ltr", // ← يقفل ترتيب الأيقونة جوا الزر نفسه
-          bgcolor: palette.accent,
-          color: "#0B1626",
+          bgcolor: colors.accent,
+          color: colors.bg,
           fontWeight: 800,
           fontSize: "0.85rem",
           letterSpacing: isRtl ? "normal" : "0.05em",
@@ -234,11 +246,9 @@ export default function Hero({ config }) {
           py: 1.5,
           width: { xs: "100%", sm: "auto" },
           textTransform: isRtl ? "none" : "uppercase",
-          boxShadow: "0 0 20px rgba(227,177,86,0.4)",
-          "&:hover": {
-            bgcolor: palette.accent,
-            boxShadow: "0 0 30px rgba(227,177,86,0.7)",
-            transform: "translateY(-2px)",
+boxShadow: `0 0 20px ${theme.palette.effects.accentButtonGlow}`,          "&:hover": {
+            bgcolor: colors.accent,
+boxShadow: `0 0 30px ${theme.palette.effects.accentButtonGlowHover}`,            transform: "translateY(-2px)",
           },
           transition: "all 0.3s ease",
         }}
@@ -257,8 +267,8 @@ export default function Hero({ config }) {
       startIcon={<LanguageIcon />}
       sx={{
         direction: "ltr", // ← نفس الشي هون
-        borderColor: palette.border,
-        color: palette.text,
+        borderColor: colors.border,
+        color: colors.text,
         fontWeight: 700,
         fontSize: "0.85rem",
         letterSpacing: isRtl ? "normal" : "0.05em",
@@ -266,12 +276,11 @@ export default function Hero({ config }) {
         px: 3.5,
         py: 1.5,
         width: { xs: "100%", sm: "auto" },
-        bgcolor: "rgba(15, 27, 46, 0.5)",
-        backdropFilter: "blur(4px)",
+bgcolor: theme.palette.effects.surfaceGlass,        backdropFilter: "blur(4px)",
         "&:hover": {
-          borderColor: palette.accent,
-          bgcolor: "rgba(227, 177, 86, 0.08)",
-          boxShadow: "0 0 15px rgba(227,177,86,0.2)",
+          borderColor: colors.accent,
+          bgcolor: theme.palette.effects.accentHover,
+boxShadow: `0 0 15px ${theme.palette.effects.accentShadow}`,
           transform: "translateY(-2px)",
         },
         transition: "all 0.3s ease",

@@ -1,24 +1,33 @@
 import { useRef, useEffect } from "react";
-import { Box, Container, Typography, Grid } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  Grid,
+  useTheme,
+} from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-const palette = {
-  bg: "#0E1B2E",
-  surface: "#0B1626",
-  border: "#1E2D42",
-  accent: "#E3B156",
-  text: "#F5F7FA",
-  muted: "#9AA5B1",
-};
-
-const fontMono = "'IBM Plex Mono', 'Courier New', monospace";
-
 function SectorCard({ sector, index, isRtl, resultLabel }) {
+  const theme = useTheme();
+
+  const fontMono = theme.typography.mono;
+
+  const colors = {
+    border: theme.palette.border.main,
+    accent: theme.palette.accent.main,
+    text: theme.palette.text.primary,
+    muted: theme.palette.text.secondary,
+    surface: theme.palette.surface.main,
+  };
+
   const cardRef = useRef(null);
 
   useEffect(() => {
     const el = cardRef.current;
+
     if (!el) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -28,7 +37,9 @@ function SectorCard({ sector, index, isRtl, resultLabel }) {
       },
       { threshold: 0.15 }
     );
+
     observer.observe(el);
+
     return () => observer.disconnect();
   }, []);
 
@@ -39,18 +50,25 @@ function SectorCard({ sector, index, isRtl, resultLabel }) {
         "--delay": `${(index % 4) * 90}ms`,
         opacity: 0,
         transform: "translateY(24px)",
-        transition: "opacity 0.5s ease var(--delay), transform 0.5s ease var(--delay), border-color 0.25s ease, box-shadow 0.25s ease",
-        "&.is-visible": { opacity: 1, transform: "translateY(0)" },
-        border: `1px solid ${palette.border}`,
+        transition:
+          "opacity 0.5s ease var(--delay), transform 0.5s ease var(--delay), border-color 0.25s ease, box-shadow 0.25s ease",
+
+        "&.is-visible": {
+          opacity: 1,
+          transform: "translateY(0)",
+        },
+
+        border: `1px solid ${colors.border}`,
         borderRadius: 2,
         p: 3,
         height: "100%",
-        bgcolor: palette.surface,
+        bgcolor: colors.surface,
         textAlign: isRtl ? "right" : "left",
+
         "&:hover": {
           transform: "translateY(-6px)",
-          borderColor: palette.accent,
-          boxShadow: "0 16px 30px rgba(0,0,0,0.35)",
+          borderColor: colors.accent,
+          boxShadow: `0 16px 30px ${theme.palette.effects.sectorCardShadow}`,
         },
       }}
     >
@@ -61,10 +79,10 @@ function SectorCard({ sector, index, isRtl, resultLabel }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          border: `1px solid ${palette.accent}`,
+          border: `1px solid ${colors.accent}`,
           borderRadius: 1.5,
-          color: palette.accent,
-          bgcolor: "rgba(227,177,86,0.06)",
+          color: colors.accent,
+          bgcolor: theme.palette.effects.sectorIconBg,
           mb: 2.5,
           fontSize: "1.2rem",
         }}
@@ -72,16 +90,43 @@ function SectorCard({ sector, index, isRtl, resultLabel }) {
         {sector.icon}
       </Box>
 
-      <Typography sx={{ color: palette.text, fontWeight: 700, fontSize: "1.05rem", mb: 1.2 }}>
+      <Typography
+        sx={{
+          color: colors.text,
+          fontWeight: 700,
+          fontSize: "1.05rem",
+          mb: 1.2,
+        }}
+      >
         {sector.title}
       </Typography>
-      <Typography sx={{ color: palette.muted, fontSize: "0.82rem", lineHeight: 1.7, mb: 2.5 }}>
+
+      <Typography
+        sx={{
+          color: colors.muted,
+          fontSize: "0.82rem",
+          lineHeight: 1.7,
+          mb: 2.5,
+        }}
+      >
         {sector.description}
       </Typography>
 
       {sector.result && (
-        <Box sx={{ borderTop: `1px solid ${palette.border}`, pt: 1.5 }}>
-          <Typography sx={{ color: palette.accent, fontFamily: fontMono, fontSize: "0.68rem", letterSpacing: "0.04em" }}>
+        <Box
+          sx={{
+            borderTop: `1px solid ${colors.border}`,
+            pt: 1.5,
+          }}
+        >
+          <Typography
+            sx={{
+              color: colors.accent,
+              fontFamily: fontMono,
+              fontSize: "0.68rem",
+              letterSpacing: "0.04em",
+            }}
+          >
             {resultLabel}: {sector.result}
           </Typography>
         </Box>
@@ -91,25 +136,76 @@ function SectorCard({ sector, index, isRtl, resultLabel }) {
 }
 
 export default function SectorsSection({ config }) {
+  const theme = useTheme();
+
+  const fontMono = theme.typography.mono;
+
+  const colors = {
+    bg: theme.palette.background.default,
+    accent: theme.palette.accent.main,
+    text: theme.palette.text.primary,
+    muted: theme.palette.text.secondary,
+  };
+
   const { i18n } = useTranslation();
   const isRtl = i18n.language === "ar";
-  const { eyebrow = "", title = "", subtitle = "", sectors = [], resultLabel = "RESULT" } = config || {};
+
+  const {
+    eyebrow = "",
+    title = "",
+    subtitle = "",
+    sectors = [],
+    resultLabel = "RESULT",
+  } = config || {};
 
   return (
-    <Box sx={{ bgcolor: palette.bg, py: { xs: 8, md: 12 } }}>
+    <Box
+      sx={{
+        bgcolor: colors.bg,
+        py: { xs: 8, md: 12 },
+      }}
+    >
       <Container maxWidth="lg" sx={{ textAlign: "center" }}>
         {eyebrow && (
-          <Typography sx={{ color: palette.accent, fontFamily: fontMono, fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.08em", mb: 2 }}>
+          <Typography
+            sx={{
+              color: colors.accent,
+              fontFamily: fontMono,
+              fontWeight: 700,
+              fontSize: "0.75rem",
+              letterSpacing: "0.08em",
+              mb: 2,
+            }}
+          >
             {eyebrow}
           </Typography>
         )}
+
         {title && (
-          <Typography sx={{ color: palette.text, fontWeight: 800, fontSize: { xs: "1.8rem", md: "2.3rem" }, mb: 2.5, lineHeight: 1.3 }}>
+          <Typography
+            sx={{
+              color: colors.text,
+              fontWeight: 800,
+              fontSize: { xs: "1.8rem", md: "2.3rem" },
+              mb: 2.5,
+              lineHeight: 1.3,
+            }}
+          >
             {title}
           </Typography>
         )}
+
         {subtitle && (
-          <Typography sx={{ color: palette.muted, fontSize: "0.95rem", maxWidth: 620, mx: "auto", mb: 7, lineHeight: 1.7 }}>
+          <Typography
+            sx={{
+              color: colors.muted,
+              fontSize: "0.95rem",
+              maxWidth: 620,
+              mx: "auto",
+              mb: 7,
+              lineHeight: 1.7,
+            }}
+          >
             {subtitle}
           </Typography>
         )}
@@ -117,7 +213,12 @@ export default function SectorsSection({ config }) {
         <Grid container spacing={2.5}>
           {sectors.map((sector, i) => (
             <Grid item xs={12} sm={6} md={3} key={i}>
-              <SectorCard sector={sector} index={i} isRtl={isRtl} resultLabel={resultLabel} />
+              <SectorCard
+                sector={sector}
+                index={i}
+                isRtl={isRtl}
+                resultLabel={resultLabel}
+              />
             </Grid>
           ))}
         </Grid>

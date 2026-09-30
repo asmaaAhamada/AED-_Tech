@@ -1,7 +1,13 @@
+import { useTranslation } from "react-i18next";
 import SectorsSection from "../common_page/SectorCard";
-import sectorsConfig from "../common_page/sectorsConfig";
+import { getSectorsConfig } from "../common_page/sectorsConfig";
 
 
 export default function SolutionsPage() {
-  return <SectorsSection config={sectorsConfig} />;
+  const { t } = useTranslation();
+
+  const currentSectorsConfig = getSectorsConfig(t);
+
+  return <SectorsSection config={currentSectorsConfig} />;
 }
+ 

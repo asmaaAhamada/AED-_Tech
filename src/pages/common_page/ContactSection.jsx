@@ -7,40 +7,49 @@ import {
   TextField,
   MenuItem,
   Stack,
+  useTheme,
 } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import BoltIcon from "@mui/icons-material/Bolt";
 import LockIcon from "@mui/icons-material/Lock";
 import { useTranslation } from "react-i18next";
 
-const palette = {
-  bg: "#0E1B2E",
-  surface: "#0B1626",
-  border: "#1E2D42",
-  accent: "#E3B156",
-  text: "#F5F7FA",
-  muted: "#9AA5B1",
-  teal: "#4FD1A5",
+
+
+export default function ContactSection({ config }) {
+
+
+
+  const theme = useTheme();
+
+const colors = {
+  bg: theme.palette.background.default,
+  surface: theme.palette.surface.main,
+  border: theme.palette.border.main,
+  accent: theme.palette.accent.main,
+  text: theme.palette.text.primary,
+  muted: theme.palette.text.secondary,
+  teal: theme.palette.teal.main,
 };
 
-const fontMono = "'IBM Plex Mono', 'Courier New', monospace";
+const fontMono = theme.typography.mono;
 
 const fieldSx = {
   "& .MuiOutlinedInput-root": {
-    bgcolor: "rgba(255,255,255,0.02)",
+    bgcolor: theme.palette.effects.surfaceOverlay,
     borderRadius: 1,
-    color: palette.text,
+    color: colors.text,
 
     "& fieldset": {
-      borderColor: palette.border,
+      borderColor: colors.border,
     },
 
     "&:hover fieldset": {
-      borderColor: palette.accent,
+      borderColor: colors.accent,
     },
 
     "&.Mui-focused fieldset": {
-      borderColor: palette.accent,
+      borderColor: colors.accent,
     },
   },
 
@@ -49,7 +58,7 @@ const fieldSx = {
   },
 
   "& .MuiInputBase-input::placeholder": {
-    color: palette.muted,
+    color: colors.muted,
     opacity: 1,
   },
 
@@ -57,8 +66,6 @@ const fieldSx = {
     textAlign: "inherit",
   },
 };
-
-export default function ContactSection({ config }) {
   const { i18n } = useTranslation();
 
   const isRtl = i18n.language?.startsWith("ar");
@@ -97,14 +104,14 @@ export default function ContactSection({ config }) {
     <Box
       dir={direction}
       sx={{
-        bgcolor: palette.bg,
+        bgcolor: colors.bg,
         py: { xs: 6, md: 10 },
       }}
     >
       <Container maxWidth="lg">
         <Box
           sx={{
-            border: `1px solid ${palette.border}`,
+            border: `1px solid ${colors.border}`,
             borderRadius: 3,
             p: { xs: 3, md: 5 },
 
@@ -138,7 +145,7 @@ export default function ContactSection({ config }) {
                   display: "inline-block",
                   alignSelf: "flex-start",
 
-                  border: `1px solid ${palette.border}`,
+                  border: `1px solid ${colors.border}`,
                   borderRadius: 1,
 
                   px: 1.5,
@@ -148,7 +155,7 @@ export default function ContactSection({ config }) {
               >
                 <Typography
                   sx={{
-                    color: palette.muted,
+                    color: colors.muted,
                     fontFamily: fontMono,
                     fontSize: "0.68rem",
                     letterSpacing: isRtl ? 0 : "0.04em",
@@ -163,7 +170,7 @@ export default function ContactSection({ config }) {
 
             <Typography
               sx={{
-                color: palette.text,
+                color: colors.text,
                 fontWeight: 800,
                 fontSize: {
                   xs: "1.6rem",
@@ -180,7 +187,7 @@ export default function ContactSection({ config }) {
 
             <Typography
               sx={{
-                color: palette.muted,
+                color: colors.muted,
                 fontSize: "0.9rem",
                 lineHeight: 1.75,
                 mb: 4,
@@ -216,15 +223,15 @@ export default function ContactSection({ config }) {
                     />
                   }
                   sx={{
-                    bgcolor: palette.accent,
-                    color: palette.bg,
+                    bgcolor: colors.accent,
+                    color: colors.bg,
                     fontWeight: 700,
                     borderRadius: 0,
                     px: 3,
                     py: 1.3,
 
                     "&:hover": {
-                      bgcolor: palette.accent,
+                      bgcolor: colors.accent,
                       opacity: 0.9,
                     },
 
@@ -242,14 +249,14 @@ export default function ContactSection({ config }) {
                 <Button
                   variant="outlined"
                   sx={{
-                    borderColor: palette.border,
-                    color: palette.text,
+                    borderColor: colors.border,
+                    color: colors.text,
                     borderRadius: 0,
                     px: 3,
                     py: 1.3,
 
                     "&:hover": {
-                      borderColor: palette.accent,
+                      borderColor: colors.accent,
                     },
                   }}
                 >
@@ -282,21 +289,21 @@ export default function ContactSection({ config }) {
                       <BoltIcon
                         sx={{
                           fontSize: 15,
-                          color: palette.teal,
+                          color: colors.teal,
                         }}
                       />
                     ) : (
                       <LockIcon
                         sx={{
                           fontSize: 15,
-                          color: palette.teal,
+                          color: colors.teal,
                         }}
                       />
                     )}
 
                     <Typography
                       sx={{
-                        color: palette.muted,
+                        color: colors.muted,
                         fontSize: "0.75rem",
                         direction,
                         textAlign,
@@ -313,8 +320,8 @@ export default function ContactSection({ config }) {
           {/* FORM */}
           <Box
             sx={{
-              bgcolor: palette.surface,
-              border: `1px solid ${palette.border}`,
+              bgcolor: colors.surface,
+              border: `1px solid ${colors.border}`,
               borderRadius: 2,
               p: { xs: 3, md: 4 },
 
@@ -325,7 +332,7 @@ export default function ContactSection({ config }) {
             {formTitle && (
               <Typography
                 sx={{
-                  color: palette.text,
+                  color: colors.text,
                   fontWeight: 700,
                   fontSize: "1.05rem",
                   mb: 0.5,
@@ -340,7 +347,7 @@ export default function ContactSection({ config }) {
             {formSubtitle && (
               <Typography
                 sx={{
-                  color: palette.muted,
+                  color: colors.muted,
                   fontSize: "0.8rem",
                   mb: 3,
                   direction,
@@ -361,7 +368,7 @@ export default function ContactSection({ config }) {
                   <Box>
                     <Typography
                       sx={{
-                        color: palette.muted,
+                        color: colors.muted,
                         fontSize: "0.68rem",
                         letterSpacing: isRtl ? 0 : "0.04em",
                         mb: 0.8,
@@ -395,7 +402,7 @@ export default function ContactSection({ config }) {
                   <Box>
                     <Typography
                       sx={{
-                        color: palette.muted,
+                        color: colors.muted,
                         fontSize: "0.68rem",
                         letterSpacing: isRtl ? 0 : "0.04em",
                         mb: 0.8,
@@ -433,7 +440,7 @@ export default function ContactSection({ config }) {
                   <Box>
                     <Typography
                       sx={{
-                        color: palette.muted,
+                        color: colors.muted,
                         fontSize: "0.68rem",
                         letterSpacing: isRtl ? 0 : "0.04em",
                         mb: 0.8,
@@ -487,14 +494,14 @@ export default function ContactSection({ config }) {
                   type="submit"
                   fullWidth
                   sx={{
-                    bgcolor: palette.accent,
-                    color: palette.bg,
+                    bgcolor: colors.accent,
+                    color: colors.bg,
                     fontWeight: 700,
                     borderRadius: 0,
                     py: 1.3,
 
                     "&:hover": {
-                      bgcolor: palette.accent,
+                      bgcolor: colors.accent,
                       opacity: 0.9,
                     },
                   }}
@@ -511,7 +518,7 @@ export default function ContactSection({ config }) {
                 sx={{
                   mt: 3,
                   pt: 2,
-                  borderTop: `1px solid ${palette.border}`,
+                  borderTop: `1px solid ${colors.border}`,
                   flexWrap: "wrap",
                   rowGap: 1,
                 }}
@@ -520,7 +527,7 @@ export default function ContactSection({ config }) {
                   <Typography
                     key={i}
                     sx={{
-                      color: palette.muted,
+                      color: colors.muted,
                       fontFamily: fontMono,
                       fontSize: "0.65rem",
                       direction: "ltr",

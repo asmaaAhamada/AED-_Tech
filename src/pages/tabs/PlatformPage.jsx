@@ -1,14 +1,19 @@
-import automationFlowConfig from "../common_page/automationFlowConfig";
+import { useTranslation } from "react-i18next";
 import AutomationFlowSection from "../common_page/AutomationFlowSection";
 import ModulesSection from "../common_page/ModuleCard";
-import modulesConfig from "../common_page/modulesConfig";
+import getModulesConfig from "../common_page/modulesConfig";
+import getAutomationFlowConfig from "../common_page/automationFlowConfig";
 
 
 export default function PlatformPage() {
+  const { t } = useTranslation();
+
+  const currentModulesConfig = getModulesConfig(t);
+  const currentAutomationFlowConfig = getAutomationFlowConfig(t);
   return (
     <>
-      <ModulesSection config={modulesConfig} />
-      <AutomationFlowSection config={automationFlowConfig} />
+      <ModulesSection config={currentModulesConfig} />
+      <AutomationFlowSection config={currentAutomationFlowConfig} />
     </>
   );
 }

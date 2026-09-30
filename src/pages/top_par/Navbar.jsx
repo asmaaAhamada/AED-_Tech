@@ -1,29 +1,52 @@
 import { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
-  AppBar, Toolbar, Box, Typography, Button, IconButton, Drawer,
-  List, ListItemButton, ListItemText, Divider, useMediaQuery,
+  AppBar,
+  Toolbar,
+  Box,
+  Typography,
+  Button,
+  IconButton,
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemText,
+  Divider,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTranslation } from "react-i18next";
 import { navConfig } from "./config";
-
-const palette = {
-  bg: "#0B1626",
-  bgScrolled: "rgba(11, 22, 38, 0.95)",
-  surface: "#080E18",
-  border: "#1E2D42",
-  accent: "#E3B156",
-  text: "#F5F7FA",
-  muted: "#9AA5B1",
-  teal: "#4FD1A5",
-};
-
-const fontMono = "'IBM Plex Mono', 'Courier New', monospace";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTheme } from "../../store/slices/themeSlice";
 
 export default function Navbar() {
   const { t, i18n } = useTranslation();
+  const theme = useTheme();
+ const dispatch = useDispatch();
+
+const mode = useSelector((state) => state.theme.mode);
+
+const fontMono = theme.typography.fontFamily;
+
+
+
+const colors = {
+  bg: theme.palette.background.default,
+  bgScrolled: theme.palette.background.scrolled,
+  surface: theme.palette.surface.main,
+  border: theme.palette.border.main,
+  accent: theme.palette.accent.main,
+  text: theme.palette.text.primary,
+  muted: theme.palette.text.secondary,
+  teal: theme.palette.teal.main,}
+
+const themeIconColor = theme.palette.effects.themeIcon;
+
   const config = navConfig(t);
   const isRtl = i18n.language === "ar";
 
@@ -55,9 +78,9 @@ export default function Navbar() {
         position="sticky"
         elevation={0}
         sx={{
-          bgcolor: scrolled ? palette.bgScrolled : palette.bg,
+          bgcolor: scrolled ? colors.bgScrolled : colors.bg,
           backdropFilter: "blur(12px)",
-          borderBottom: `1px solid ${palette.border}`,
+          borderBottom: `1px solid ${colors.border}`,
           transition: "all 0.25s ease",
         }}
       >
@@ -65,48 +88,77 @@ export default function Navbar() {
             بغض النظر عن اتجاه الصفحة (rtl/ltr)، فاللوغو يضل مثبت أقصى اليسار دايماً */}
         <Toolbar sx={{ minHeight: 72, px: { xs: 2, md: 4 }, direction: "ltr" }}>
           {/* Brand — ثابت أقصى اليسار دايماً، بدون أي شرط isRtl */}
-          <Box
-            component={NavLink}
-            to="/"
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 1.5,
-              textDecoration: "none",
-              mr: "auto",
-            }}
-          >
-            {logo}
-            <Box sx={{ direction: isRtl ? "rtl" : "ltr", textAlign: isRtl ? "right" : "left" }}>
-              <Typography
-                sx={{
-                  color: palette.text,
-                  fontWeight: 900,
-                  fontSize: { xs: "1.3rem", md: "1.5rem" },
-                  letterSpacing: "0.06em",
-                  lineHeight: 1,
-                  fontFamily: fontMono,
-                }}
-              >
-                {brandName}
-              </Typography>
-              {brandTag && (
-                <Typography
-                  sx={{
-                    color: palette.muted,
-                    fontFamily: fontMono,
-                    fontSize: "0.82rem",
-                    fontWeight: 600,
-                    letterSpacing: isRtl ? "normal" : "0.14em",
-                    lineHeight: 1.2,
-                    mt: 0.5,
-                  }}
-                >
-                  {brandTag}
-                </Typography>
-              )}
-            </Box>
-          </Box>
+         <Box
+  component={NavLink}
+  to="/"
+  sx={{
+    display: "flex",
+    alignItems: "center",
+    gap: 1.5,
+    textDecoration: "none",
+    mr: "auto",
+  }}
+>
+  {logo}
+
+  <Box
+    sx={{
+      direction: isRtl ? "rtl" : "ltr",
+      textAlign: isRtl ? "right" : "left",
+    }}
+  >
+    <Typography
+      sx={{
+        color: colors.text,
+        fontWeight: 900,
+        fontSize: { xs: "1.3rem", md: "1.5rem" },
+        letterSpacing: "0.06em",
+        lineHeight: 1,
+        fontFamily: fontMono,
+      }}
+    >
+      {brandName}
+    </Typography>
+
+    {brandTag && (
+      <Typography
+        sx={{
+          color: colors.muted,
+          fontFamily: fontMono,
+          fontSize: "0.82rem",
+          fontWeight: 600,
+          letterSpacing: isRtl ? "normal" : "0.14em",
+          lineHeight: 1.2,
+          mt: 0.5,
+        }}
+      >
+        {brandTag}
+      </Typography>
+    )}
+  </Box>
+
+  {/* Theme icon */}
+ {/* Theme icon */}
+  <IconButton
+  onClick={() => dispatch(toggleTheme())}
+  aria-label={
+    mode === "dark"
+      ? "Switch to light mode"
+      : "Switch to dark mode"
+  }
+  sx={{
+     color: themeIconColor,fontSize:'34px',
+    "&:hover": {
+      bgcolor: theme.palette.effects.accentGlow,
+    },
+  }}
+>
+{mode === "dark" ? (
+  <WbSunnyIcon fontSize="large" />
+) : (
+  <DarkModeIcon  fontSize="large" />
+)}</IconButton>
+</Box>
 
           {/* Desktop Nav — الترتيب معكوس بالعربي عبر displayNavItems */}
           {isDesktop && (
@@ -117,7 +169,7 @@ export default function Navbar() {
                     <Box
                       sx={{
                         position: "relative",
-                        color: isActive ? palette.accent : palette.text,
+                        color: isActive ? colors.accent : colors.text,
                         fontSize: "0.85rem",
                         fontWeight: 700,
                         letterSpacing: isRtl ? "normal" : "0.06em",
@@ -125,7 +177,7 @@ export default function Navbar() {
                         fontFamily: fontMono,
                         py: 1,
                         transition: "color 0.2s ease",
-                        "&:hover": { color: palette.accent },
+                        "&:hover": { color: colors.accent },
                         "&::after": {
                           content: '""',
                           position: "absolute",
@@ -133,7 +185,7 @@ export default function Navbar() {
                           left: 0,
                           width: isActive ? "100%" : "0%",
                           height: "2px",
-                          backgroundColor: palette.accent,
+                          backgroundColor: colors.accent,
                           transition: "width 0.25s ease-in-out",
                         },
                         "&:hover::after": { width: "100%" },
@@ -149,7 +201,7 @@ export default function Navbar() {
 
           {/* Language Switcher */}
           {locales.length > 0 && isDesktop && (
-            <Box sx={{ display: "flex", alignItems: "center", border: `1px solid ${palette.border}`, bgcolor: palette.bg, mx: 2 }}>
+            <Box sx={{ display: "flex", alignItems: "center", border: `1px solid ${colors.border}`, bgcolor: colors.bg, mx: 2 }}>
               {locales.map((loc) => {
                 const isActive = i18n.language === loc.code;
                 return (
@@ -163,10 +215,10 @@ export default function Navbar() {
                       fontWeight: 800,
                       px: 1.8,
                       py: 0.7,
-                      color: isActive ? "#0B1626" : palette.muted,
-                      bgcolor: isActive ? palette.accent : "transparent",
+                      color: isActive ? colors.bg : colors.muted,
+                      bgcolor: isActive ? colors.accent : "transparent",
                       transition: "all 0.2s ease",
-                      "&:hover": { color: isActive ? "#0B1626" : palette.text },
+                      "&:hover": { color: isActive ? colors.bg : colors.text },
                     }}
                   >
                     {loc.label}
@@ -178,30 +230,43 @@ export default function Navbar() {
 
           {/* CTA */}
           {cta && isDesktop && (
-            <Button
-              component={NavLink}
-              to={cta.path}
-              variant="outlined"
-              sx={{
-                borderColor: palette.accent,
-                color: palette.accent,
-                borderRadius: 0,
-                px: 2.5,
-                py: 0.8,
-                fontSize: "0.78rem",
-                fontWeight: 800,
-                fontFamily: fontMono,
-                letterSpacing: isRtl ? "normal" : "0.08em",
-                transition: "all 0.2s ease",
-                "&:hover": { borderColor: palette.accent, color: palette.accent, bgcolor: "rgba(227, 177, 86, 0.08)" },
-              }}
-            >
-              {cta.label}
-            </Button>
+           <Button
+  component={NavLink}
+  to={cta.path}
+  variant="outlined"
+  sx={{
+    borderColor: colors.accent,
+    color: colors.accent,
+    borderRadius: 0,
+
+    px: 2.5,
+    py: 0.8,
+
+    fontSize: "0.78rem",
+    fontWeight: 800,
+    fontFamily: fontMono,
+
+    letterSpacing: isRtl ? "normal" : "0.08em",
+
+    whiteSpace: "nowrap",
+
+    minWidth: "max-content",
+
+    transition: "all 0.2s ease",
+
+    "&:hover": {
+      borderColor: colors.accent,
+      color: colors.accent,
+      bgcolor: theme.palette.effects.accentHover,
+    },
+  }}
+>
+  {cta.label}
+</Button>
           )}
 
           {!isDesktop && (
-            <IconButton onClick={() => setMobileOpen(true)} sx={{ color: palette.text }}>
+            <IconButton onClick={() => setMobileOpen(true)} sx={{ color: colors.text }}>
               <MenuIcon />
             </IconButton>
           )}
@@ -213,10 +278,10 @@ export default function Navbar() {
         anchor={isRtl ? "left" : "right"}
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
-        PaperProps={{ sx: { bgcolor: palette.bg, width: 280, borderLeft: `1px solid ${palette.border}` } }}
+        PaperProps={{ sx: { bgcolor: colors.bg, width: 280, borderLeft: `1px solid ${colors.border}` } }}
       >
         <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
-          <IconButton onClick={() => setMobileOpen(false)} sx={{ color: palette.text }}>
+          <IconButton onClick={() => setMobileOpen(false)} sx={{ color: colors.text }}>
             <CloseIcon />
           </IconButton>
         </Box>
@@ -228,13 +293,13 @@ export default function Navbar() {
               to={item.path}
               end={item.path === "/"}
               sx={{
-                color: palette.text,
+                color: colors.text,
                 py: 1.5,
                 "&.active": {
-                  color: palette.accent,
-                  borderRight: isRtl ? `3px solid ${palette.accent}` : "none",
-                  borderLeft: !isRtl ? `3px solid ${palette.accent}` : "none",
-                  bgcolor: "rgba(227, 177, 86, 0.05)",
+                  color: colors.accent,
+                  borderRight: isRtl ? `3px solid ${colors.accent}` : "none",
+                  borderLeft: !isRtl ? `3px solid ${colors.accent}` : "none",
+                  bgcolor: theme.palette.effects.accentActive,
                 },
               }}
             >
@@ -242,7 +307,7 @@ export default function Navbar() {
             </ListItemButton>
           ))}
         </List>
-        <Divider sx={{ borderColor: palette.border, my: 1 }} />
+        <Divider sx={{ borderColor: colors.border, my: 1 }} />
 
         <Box sx={{ px: 2, py: 1, display: "flex", gap: 1 }}>
           {locales.map((loc) => (
@@ -252,11 +317,11 @@ export default function Navbar() {
               size="small"
               onClick={() => handleLanguageChange(loc.code)}
               sx={{
-                color: i18n.language === loc.code ? "#0B1626" : palette.text,
-                bgcolor: i18n.language === loc.code ? palette.accent : "transparent",
-                border: `1px solid ${palette.border}`,
+                color: i18n.language === loc.code ? colors.bg : colors.text,
+                bgcolor: i18n.language === loc.code ? colors.accent : "transparent",
+                border: `1px solid ${colors.border}`,
                 fontFamily: fontMono,
-                "&:hover": { bgcolor: palette.accent, color: "#0B1626" },
+                "&:hover": { bgcolor: colors.accent, color: colors.bg },
               }}
             >
               {loc.label}
@@ -266,7 +331,7 @@ export default function Navbar() {
 
         {cta && (
           <Box sx={{ px: 2, mt: 1 }}>
-            <Button component={NavLink} to={cta.path} fullWidth variant="outlined" sx={{ borderColor: palette.accent, color: palette.accent, borderRadius: 0, py: 1 }}>
+            <Button component={NavLink} to={cta.path} fullWidth variant="outlined" sx={{ borderColor: colors.accent, color: colors.accent, borderRadius: 0, py: 1 }}>
               {cta.label}
             </Button>
           </Box>
