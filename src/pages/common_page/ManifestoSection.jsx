@@ -20,8 +20,10 @@ export default function ManifestoSection({ config }) {
     text: theme.palette.text.primary,
     muted: theme.palette.text.secondary,
   };
+
   const sectionRef = useRef(null);
   const glowRef = useRef(null);
+
   const { i18n } = useTranslation();
   const isRtl = i18n.language === "ar";
 
@@ -32,8 +34,10 @@ export default function ManifestoSection({ config }) {
     tagline = "",
     quote = "",
     pillars = [],
+    backgroundImage = "",
   } = config || {};
-    useEffect(() => {
+
+  useEffect(() => {
     const section = sectionRef.current;
     const glow = glowRef.current;
 
@@ -61,32 +65,63 @@ export default function ManifestoSection({ config }) {
 
   return (
     <Box
-  ref={sectionRef}
-  sx={{
-    position: "relative",
-    bgcolor: colors.bg,
-    py: { xs: 8, md: 12 },
-    textAlign: "center",
-    overflow: "hidden",
-  }}
->
-  <Box
-  ref={glowRef}
-  sx={{
-    position: "absolute",
-    inset: 0,
-    pointerEvents: "none",
-    transition: "background 0.05s linear",
-    zIndex: 0,
-  }}
-/>
-<Container
-  maxWidth="md"
-  sx={{
-    position: "relative",
-    zIndex: 1,
-  }}
->        {logo && (
+      ref={sectionRef}
+      sx={{
+        position: "relative",
+        bgcolor: colors.bg,
+        py: { xs: 8, md: 12 },
+        textAlign: "center",
+        overflow: "hidden",
+
+        ...(backgroundImage && {
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }),
+      }}
+    >
+      {/* Background overlay */}
+      {backgroundImage && (
+        <Box
+          sx={{
+            position: "absolute",
+            inset: 0,
+
+            background:
+              theme.palette.mode === "dark"
+                ? "linear-gradient(180deg, rgba(21, 11, 20, 0.86), rgba(21, 11, 20, 0.94))"
+                : "linear-gradient(180deg, rgba(251, 244, 247, 0.88), rgba(251, 244, 247, 0.95))",
+
+            backdropFilter: "blur(1px)",
+
+            zIndex: 0,
+          }}
+        />
+      )}
+
+      {/* Mouse glow */}
+      <Box
+        ref={glowRef}
+        sx={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          transition: "background 0.05s linear",
+          zIndex: 1,
+        }}
+      />
+
+      {/* Content */}
+      <Container
+        maxWidth="md"
+        sx={{
+          position: "relative",
+          zIndex: 2,
+        }}
+      >
+        {/* Logo */}
+        {logo && (
           <Box
             component="img"
             src={logo}
@@ -104,6 +139,7 @@ export default function ManifestoSection({ config }) {
           />
         )}
 
+        {/* Badge */}
         {badgeLabel && (
           <Box
             sx={{
@@ -115,6 +151,11 @@ export default function ManifestoSection({ config }) {
               px: 2,
               py: 1,
               mb: 4,
+
+              bgcolor:
+                theme.palette.effects.surfaceGlass,
+              
+              backdropFilter: "blur(8px)",
             }}
           >
             <Typography
@@ -129,6 +170,7 @@ export default function ManifestoSection({ config }) {
           </Box>
         )}
 
+        {/* Eyebrow */}
         {eyebrow && (
           <Typography
             sx={{
@@ -143,6 +185,7 @@ export default function ManifestoSection({ config }) {
           </Typography>
         )}
 
+        {/* Tagline */}
         {tagline && (
           <Typography
             sx={{
@@ -159,6 +202,7 @@ export default function ManifestoSection({ config }) {
           </Typography>
         )}
 
+        {/* Quote */}
         {quote && (
           <Typography
             sx={{
@@ -178,8 +222,8 @@ export default function ManifestoSection({ config }) {
           </Typography>
         )}
 
+        {/* Pillars */}
         {pillars.length > 0 && (
-          // direction LTR حتى ترتيب الـ Pillars يبقى ثابتاً بكل اللغات
           <Stack
             direction={{
               xs: "column",

@@ -179,4 +179,275 @@
       "Secure by Design"
     ]
   }
+  ,
+  "lamsa": {
+    "nav": {
+      "brandTag": "WHERE BEAUTY BEGINS",
+      "home": "Home",
+      "solutions": "Treatments",
+      "platform": "Packages",
+      "ecosystem": "Our Team",
+      "services": "Gallery",
+      "vision": "About Lamsa",
+      "contact": "Book Now",
+      "cta": "BOOK NOW",
+      "status": "NOW ACCEPTING BOOKINGS"
+    },
+    "home": {
+      "badgeText": "LAMSA // BEAUTY & WELLNESS STUDIO",
+      "headlineStart": "Every Visit Is",
+      "headlineHighlight": "A Moment of Beauty.",
+      "subtitle": "A refined studio experience built around you — from the first booking to every treatment after. Personalized care, premium service, always.",
+      "primaryCta": "EXPLORE TREATMENTS",
+      "secondaryCta": "VIEW GALLERY"
+    }
+  ,
+  "lamsaGrid": {
+    "header": {
+      "label": "LAMSA_BOOKING_GRAPH // CLIENT_NETWORK_v1.0",
+      "description": "Real-Time Booking Topology: Client Journey to Studio Floor",
+      "metrics": [
+        { "label": "ACTIVE BOOKINGS", "value": "100% SYNCED" },
+        { "label": "RESPONSE TIME", "value": "< 5ms" },
+        { "label": "DAILY APPOINTMENTS", "value": "180+ SLOTS" }
+      ]
+    },
+    "centerNode": {
+      "title": "LAMSA",
+      "subtitle": "STUDIO CORE"
+    },
+    "topNodes": [
+      { "title": "BOOKING GATEWAY", "subtitle": "SECURE ENTRY POINT" },
+      { "title": "TREATMENT MENU", "subtitle": "LIVE SERVICE CATALOG" },
+      { "title": "LOYALTY PROGRAM", "subtitle": "REWARDS & PERKS" }
+    ],
+    "bottomNodes": [
+      { "title": "APPOINTMENT FLOW", "subtitle": "SCHEDULING & REMINDERS" },
+      { "title": "CLIENT RELATIONSHIP", "subtitle": "FOLLOW-UP & RETENTION" },
+      { "title": "STUDIO INSIGHTS", "subtitle": "PERFORMANCE ANALYTICS" }
+    ],
+    "stats": [
+      { "label": "REBOOKING RATE", "value": "+38.0%", "note": "Automated reminders" },
+      { "label": "PROFILE COMPLETION", "value": "90.0%", "note": "Seamless intake forms" },
+      { "label": "AVERAGE SPEND INCREASE", "value": "+22.0%", "note": "Smart package suggestions" },
+      { "label": "SETUP TIME", "value": "< 48 HRS", "note": "Fast studio onboarding" }
+    ]
+  }
+,
+    "practiceAreas": {
+      "eyebrow": "BEAUTY CENTER OPERATIONS",
+      "title": "Everything your beauty center needs to run smoothly.",
+      "description": "From appointments and customer care to services, payments, inventory, and performance insights — Lamsa brings the daily operation of your beauty center into one connected platform.",
+
+      "items": [
+        {
+          "key": "appointments",
+          "eyebrow": "APPOINTMENTS",
+          "title": "Smart Appointment Management",
+          "description": "Organize bookings, schedules, availability, and daily appointments without the usual back-and-forth.",
+          "tags": [
+            "Calendar",
+            "Availability",
+            "Reminders"
+          ]
+        },
+        {
+          "key": "customers",
+          "eyebrow": "CUSTOMERS",
+          "title": "Customer Profiles & History",
+          "description": "Keep every customer detail, visit, service history, and preference connected in one clear profile.",
+          "tags": [
+            "Profiles",
+            "History",
+            "Preferences"
+          ]
+        },
+        {
+          "key": "services",
+          "eyebrow": "SERVICES",
+          "title": "Services & Packages",
+          "description": "Manage treatments, beauty services, packages, pricing, duration, and availability from one place.",
+          "tags": [
+            "Treatments",
+            "Packages",
+            "Pricing"
+          ]
+        },
+        {
+          "key": "payments",
+          "eyebrow": "PAYMENTS",
+          "title": "Sales & Payment Tracking",
+          "description": "Track invoices, payments, outstanding balances, and daily sales with a clear operational view.",
+          "tags": [
+            "Invoices",
+            "Payments",
+            "Sales"
+          ]
+        },
+        {
+          "key": "inventory",
+          "eyebrow": "INVENTORY",
+          "title": "Products & Stock Control",
+          "description": "Monitor products, stock levels, usage, and supplies so your team always knows what is available.",
+          "tags": [
+            "Products",
+            "Stock",
+            "Supplies"
+          ]
+        },
+        {
+          "key": "analytics",
+          "eyebrow": "ANALYTICS",
+          "title": "Performance Insights",
+          "description": "Understand appointments, services, revenue, customer activity, and operational performance through meaningful insights.",
+          "tags": [
+            "Reports",
+            "Revenue",
+            "Insights"
+          ]
+        }
+      ]
+    }
+  , "manifesto": {
+      "eyebrow": "THE LAMSA EXPERIENCE",
+      "tagline": "Where Beauty Meets Intelligent Management",
+      "quote": "LAMSA brings every part of the beauty center together — from appointments and clients to services, teams, and daily operations — in one elegant digital experience.",
+      "pillars": [
+        "BEAUTY",
+        "EXPERIENCE",
+        "EFFICIENCY",
+        "GROWTH"
+      ]
+    }
+,"contact": {
+      "badgeLabel": "LET'S CONNECT",
+      "title": "Let's build a better beauty experience.",
+      "description": "Tell us about your beauty center and discover how LAMSA can help you create a more intelligent, connected, and personalized client experience.",
+
+      "primaryCta": {
+        "label": "Talk to LAMSA"
+      },
+
+      "secondaryCta": {
+        "label": "Explore LAMSA"
+      },
+
+      "trustNotes": [
+        "Personalized consultation",
+        "Your information stays private"
+      ],
+
+      "formTitle": "Tell us about your center",
+      "formSubtitle": "A few details are enough for us to understand your needs.",
+
+      "fields": {
+        "name": {
+          "label": "Your name",
+          "placeholder": "Enter your name"
+        },
+
+        "email": {
+          "label": "Email address",
+          "placeholder": "you@example.com"
+        },
+
+        "businessType": {
+          "label": "Business type",
+          "options": [
+            "Beauty Center",
+            "Beauty Clinic",
+            "Spa",
+            "Salon",
+            "Other"
+          ]
+        }
+      },
+
+      "submitLabel": "Send Request",
+
+      "formTrustBadges": [
+        "PRIVATE",
+        "PERSONALIZED",
+        "NO SPAM"
+      ]
+    }
+    ,"footer": {
+      "logoText": "LAMSA",
+      "subLogoText": "BEAUTY INTELLIGENCE",
+
+      "brandDescription": "A smarter beauty experience built around personalized care, connected operations, and meaningful client relationships.",
+
+      "copyright": "© 2026 LAMSA. All rights reserved.",
+
+      "social": {
+        "instagram": "Instagram",
+        "whatsapp": "WhatsApp"
+      },
+
+      "columns": [
+        {
+          "title": "LAMSA",
+          "links": [
+            "About LAMSA",
+            "Our Vision",
+            "Contact"
+          ]
+        },
+        {
+          "title": "PLATFORM",
+          "links": [
+            "Solutions",
+            "Features",
+            "Ecosystem"
+          ]
+        },
+        {
+          "title": "EXPLORE",
+          "links": [
+            "Services",
+            "Beauty Centers",
+            "Get Started"
+          ]
+        }
+      ]
+    }
+}
+,  "lamsaModules": {
+    "eyebrow": "STUDIO SYSTEM // FULL SUITE",
+    "title": "One Studio. Every Client Moment.",
+    "subtitle": "Twelve connected modules built to run a modern beauty studio — from first booking to lasting loyalty.",
+    "items": [
+      { "code": "MOD_01", "title": "Live Treatment Menu", "description": "Instant display of every service and package, with real-time pricing updates and rich before/after imagery.", "badgeLabel": "LOAD TIME", "badgeValue": "< 320ms" },
+      { "code": "MOD_02", "title": "One-Tap Booking Gateway", "description": "Zero-app instant booking via link or QR code. Secure, time-slot aware tokens prevent double-booking.", "badgeLabel": "INSTALL REQ", "badgeValue": "ZERO APP" },
+      { "code": "MOD_03", "title": "Unified Client Profile", "description": "Consent-first client records across every visit. Tracks skin/hair preferences, history, and favorite stylists.", "badgeLabel": "COMPLIANCE", "badgeValue": "GDPR READY" },
+      { "code": "MOD_04", "title": "Smart Promotions Engine", "description": "Dynamic perks and seasonal offers that trigger based on visit frequency, birthdays, and spend level.", "badgeLabel": "UPLIFT", "badgeValue": "+20.0%" },
+      { "code": "MOD_05", "title": "Virtual Queue & Wait Times", "description": "Live wait-time prediction with automated SMS alerts, walk-in handling, and cancellation backfill.", "badgeLabel": "ACCURACY", "badgeValue": "95.0%" },
+      { "code": "MOD_06", "title": "Appointment Manager", "description": "Scheduling controller with stylist pacing, confirmations, special requests, and capacity optimization.", "badgeLabel": "NO-SHOW DROP", "badgeValue": "-60%" },
+      { "code": "MOD_07", "title": "Automated Re-booking", "description": "Automated reminder system for clients overdue a visit. Sends timed, personalized invitations without manual effort.", "badgeLabel": "RETURN RATE", "badgeValue": "3.0x AVG" },
+      { "code": "MOD_08", "title": "Studio Performance Dashboard", "description": "Real-time revenue, chair utilization, and client retention trends across every stylist.", "badgeLabel": "REFRESH", "badgeValue": "LIVE" },
+      { "code": "MOD_09", "title": "Payment & Tools Connectors", "description": "Bi-directional sync with the tools you already use — POS systems, payment terminals, and inventory.", "badgeLabel": "CONNECTORS", "badgeValue": "50+ READY" },
+      { "code": "MOD_10", "title": "Owner Command Center", "description": "Multi-branch live overview for owners and managers across every studio location.", "badgeLabel": "AGGREGATION", "badgeValue": "GLOBAL" },
+      { "code": "MOD_11", "title": "Reviews & Reputation Hub", "description": "Automated post-visit review requests with sentiment tracking and instant public review routing.", "badgeLabel": "SATISFACTION", "badgeValue": "98.4%" },
+      { "code": "MOD_12", "title": "Omnichannel Client Messaging", "description": "Centralized messaging matrix syncing WhatsApp, SMS, and email reminders into one unified thread.", "badgeLabel": "DELIVERY RATE", "badgeValue": "99.9%" }
+    ]
+  },"lamsaAutomation": {
+    "eyebrow": "YOUR SKIN JOURNEY",
+    "title": "From First Visit to Visible Results.",
+    "subtitle": "Every treatment plan follows a clear path — assessed, personalized, and tracked at every step.",
+    "steps": [
+      { "key": "assessment", "variant": "default", "label": "STEP 1", "title": "Skin Assessment", "description": "A personalized consultation to understand your skin's needs." },
+      { "key": "plan", "variant": "default", "label": "STEP 2", "title": "Custom Treatment Plan", "description": "A plan built around your goals and skin type." },
+      { "key": "sessions", "variant": "decision", "label": "STEP 3", "title": "Ongoing Sessions?", "description": "", "pill": "ON SCHEDULE" },
+      { "key": "care", "variant": "action", "label": "STEP 4", "title": "Guided Treatment", "description": "Hands-on care from your dedicated specialist." },
+      { "key": "result", "variant": "outcome", "label": "STEP 5", "title": "Visible Glow", "description": "Real results you can see and feel." }
+    ],
+    "footer": {
+      "pipelineLabel": "JOURNEY ID:",
+      "pipelineId": "LAMSA_JRN_0417",
+      "stats": [
+        { "label": "CLIENTS COMPLETED JOURNEY", "value": "2,300+" },
+        { "label": "SATISFACTION RATE", "value": "97.0%" }
+      ]
+    }
+  }
 }

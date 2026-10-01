@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-
+import InstagramIcon from "@mui/icons-material/Instagram";
 export default function FooterSection({ config }) {
   const theme = useTheme();
   const fontMono = theme.typography.mono;
@@ -26,14 +26,17 @@ export default function FooterSection({ config }) {
   const { i18n } = useTranslation();
   const isRtl = i18n.language === "ar";
 
-  const {
-    logoText,
-    subLogoText,
-    brandDescription,
-    copyright,
-    linksColumns,
-    whatsappNumber = "",
-  } = config || {};
+ const {
+  logoText,
+  subLogoText,
+  brandDescription,
+  copyright,
+  linksColumns,
+  social = {},
+} = config || {};
+
+const instagram = social.instagram || null;
+const whatsapp = social.whatsapp || null;
 
   const scrollToTop = (e) => {
     e.preventDefault();
@@ -120,90 +123,141 @@ export default function FooterSection({ config }) {
             {/* =========================
                 WHATSAPP BUTTON
             ========================== */}
-            {whatsappNumber && (
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: isRtl
-                    ? "flex-end"
-                    : "flex-start",
-                  mt: 4,
-                  width: "100%",
-                }}
-              >
-                <Box
-                  component="a"
-                  href={`https://wa.me/${whatsappNumber.replace(
-                    /\D/g,
-                    ""
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Contact us on WhatsApp"
-                  sx={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 1.2,
+           {/* =========================
+    SOCIAL ACTIONS
+========================== */}
+{(instagram || whatsapp) && (
+  <Stack
+    direction={isRtl ? "row-reverse" : "row"}
+    spacing={1.5}
+    sx={{
+      mt: 4,
+      flexWrap: "wrap",
+      rowGap: 1.5,
+    }}
+  >
+    {/* Instagram */}
+    {instagram?.url && (
+      <Box
+        component="a"
+        href={instagram.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram"
+        sx={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 1,
 
-                    width: {
-                      xs: "100%",
-                      sm: "auto",
-                    },
+          minHeight: 46,
+          px: 2,
 
-                    minHeight: 48,
-                    px: 2.5,
+          border: `1px solid ${colors.border}`,
+          borderRadius: 1,
 
-                    border: "1px solid #25D366",
-                    borderRadius: 1,
+          color: colors.text,
+          textDecoration: "none",
 
-                    color: "#25D366",
-                    textDecoration: "none",
+          fontFamily: fontMono,
+          fontSize: "0.75rem",
+          fontWeight: 700,
 
-                    fontFamily: fontMono,
-                    fontSize: "0.78rem",
-                    fontWeight: 800,
+          transition:
+            "all 0.25s ease",
 
-                    transition:
-                      "all 0.25s ease",
+          "&:hover": {
+            color: colors.accent,
+            borderColor: colors.accent,
+            transform: "translateY(-2px)",
+            boxShadow: `0 8px 20px ${theme.palette.effects.accentGlow}`,
+          },
 
-                    "&:hover": {
-                      bgcolor:
-                        "rgba(37, 211, 102, 0.08)",
-                      borderColor: "#25D366",
-                      transform:
-                        "translateY(-2px)",
-                      boxShadow:
-                        "0 8px 20px rgba(37, 211, 102, 0.18)",
-                    },
+          "&:active": {
+            transform: "translateY(0)",
+          },
+        }}
+      >
+        <InstagramIcon sx={{ fontSize: 21 }} />
 
-                    "&:active": {
-                      transform:
-                        "translateY(0)",
-                    },
-                  }}
-                >
-                  <WhatsAppIcon
-                    sx={{
-                      fontSize: 25,
-                      color: "#25D366",
-                    }}
-                  />
+        <Typography
+          component="span"
+          sx={{
+            color: "inherit",
+            fontFamily: "inherit",
+            fontSize: "inherit",
+            fontWeight: "inherit",
+          }}
+        >
+          {instagram.label}
+        </Typography>
+      </Box>
+    )}
 
-                  <Typography
-                    component="span"
-                    sx={{
-                      color: "inherit",
-                      fontFamily: "inherit",
-                      fontSize: "inherit",
-                      fontWeight: "inherit",
-                    }}
-                  >
-                    WhatsApp
-                  </Typography>
-                </Box>
-              </Box>
-            )}
+    {/* WhatsApp */}
+    {whatsapp?.number && (
+      <Box
+        component="a"
+        href={`https://wa.me/${whatsapp.number.replace(
+          /\D/g,
+          ""
+        )}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Contact us on WhatsApp"
+        sx={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 1,
+
+          minHeight: 46,
+          px: 2,
+
+          border: "1px solid #25D366",
+          borderRadius: 1,
+
+          color: "#25D366",
+          textDecoration: "none",
+
+          fontFamily: fontMono,
+          fontSize: "0.75rem",
+          fontWeight: 800,
+
+          transition:
+            "all 0.25s ease",
+
+          "&:hover": {
+            bgcolor:
+              "rgba(37, 211, 102, 0.08)",
+            borderColor: "#25D366",
+            transform: "translateY(-2px)",
+            boxShadow:
+              "0 8px 20px rgba(37, 211, 102, 0.18)",
+          },
+
+          "&:active": {
+            transform: "translateY(0)",
+          },
+        }}
+      >
+        <WhatsAppIcon sx={{ fontSize: 22 }} />
+
+        <Typography
+          component="span"
+          sx={{
+            color: "inherit",
+            fontFamily: "inherit",
+            fontSize: "inherit",
+            fontWeight: "inherit",
+          }}
+        >
+          {whatsapp.label}
+        </Typography>
+      </Box>
+    )}
+  </Stack>
+)}
           </Grid>
 
           {/* =========================

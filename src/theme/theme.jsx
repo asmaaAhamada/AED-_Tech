@@ -2,13 +2,16 @@
 
 import { createTheme } from "@mui/material/styles";
 import { brandTokens, fontTokens } from "./brandToken";
+export const createAppTheme = (tokenKey = "dark", muiMode) => {
+  const colors = brandTokens[tokenKey];
 
-export const createAppTheme = (mode = "dark") => {
-  const colors = brandTokens[mode];
+  // استنتج الـ mode الحقيقي لـ MUI من اسم الـ tokenKey إذا ما انبعت صراحة
+  const resolvedMuiMode = muiMode || (tokenKey.toLowerCase().includes("light") ? "light" : "dark");
+
 
   return createTheme({
     palette: {
-      mode,
+      mode: resolvedMuiMode,
 
       // Backgrounds
  background: {

@@ -116,9 +116,142 @@ sectorCardShadow: "rgba(14, 27, 46, 0.12)",
 accentHover: "rgba(185, 133, 32, 0.08)",
 accentShadow: "rgba(185, 133, 32, 0.16)",
 },
+
+// src/theme/brandTokens.js — أضف هالاثنين بآخر الـ export الموجود
+
+
+
+  // ===== Beauty Center Sector (lamsa) =====
+  // src/theme/brandTokens.js — بدّل هالاثنين بس، الباقي (dark, light تبع AED Tech) ما يتغير
+
+lamsaDark: {
+  background: "#150B14",
+  backgroundAlt: "#0F070E",
+
+  surface: "#1F1220",
+  surfaceAlt: "#271629",
+  mouseGlow: "rgba(214, 51, 108, 0.14)",
+
+  border: "#3A2238",
+
+  accent: "#D6336C",        // ← الوردي/الماجنتا الغامق صار الأساسي
+  accentStrong: "#B32357",
+  themeIcon: "#D6336C",
+
+  text: "#F5EFF2",
+  muted: "#C9A9B8",
+  mutedAlt: "#B08A9A",
+
+  teal: "#D9B64A",           // ← الذهبي صار اللون الثانوي بس
+
+  flowDefaultBg: "rgba(255, 255, 255, 0.02)",
+  flowDecisionBg: "rgba(214, 51, 108, 0.08)",
+  flowOutcomeBg: "rgba(217, 182, 74, 0.08)",
+  flowPillBg: "rgba(217, 182, 74, 0.15)",
+
+  bgScrolled: "rgba(21, 11, 20, 0.92)",
+
+  gridCardBg: "rgba(31, 18, 32, 0.75)",
+  gridCardBgHover: "rgba(39, 22, 41, 0.9)",
+  gridPanelBg: "rgba(15, 7, 14, 0.5)",
+  gridCenterBg: "rgba(31, 18, 32, 0.92)",
+  gridIdBg: "rgba(0, 0, 0, 0.3)",
+  gridGlow: "rgba(214, 51, 108, 0.12)",
+  gridCardShadow: "rgba(214, 51, 108, 0.3)",
+  gridCenterShadow: "rgba(214, 51, 108, 0.2)",
+  gridCenterShadowHover: "rgba(214, 51, 108, 0.35)",
+
+  moduleCardBg: "rgba(255, 255, 255, 0.02)",
+  moduleCardShadow: "rgba(0, 0, 0, 0.35)",
+  moduleGlow: "rgba(214, 51, 108, 0.08)",
+
+  practiceIconBg: "rgba(255, 255, 255, 0.02)",
+  practiceCardShadow: "rgba(0, 0, 0, 0.35)",
+
+  sectorIconBg: "rgba(214, 51, 108, 0.06)",
+  sectorCardShadow: "rgba(0, 0, 0, 0.35)",
+
+  accentGlow: "rgba(214, 51, 108, 0.12)",
+  accentGlowStrong: "rgba(214, 51, 108, 0.2)",
+  accentHover: "rgba(214, 51, 108, 0.08)",
+  accentActive: "rgba(214, 51, 108, 0.05)",
+  accentButtonGlow: "rgba(214, 51, 108, 0.4)",
+  accentButtonGlowHover: "rgba(214, 51, 108, 0.7)",
+  accentShadow: "rgba(214, 51, 108, 0.2)",
+
+  tealGlow: "rgba(217, 182, 74, 0.06)",
+  surfaceOverlay: "rgba(255, 255, 255, 0.02)",
+  surfaceTranslucent: "rgba(31, 18, 32, 0.6)",
+  surfaceGlass: "rgba(15, 7, 14, 0.5)",
+},
+
+lamsaLight: {
+  background: "#FBF4F7",
+  backgroundAlt: "#F5E9EF",
+
+  surface: "#FFFFFF",
+  surfaceAlt: "#FDF7FA",
+  mouseGlow: "rgba(181, 73, 91, 0.10)",
+
+  border: "#EBD9E1",
+
+  accent: "#B5495B",        // ← الوردي الغامق صار الأساسي، مو الذهبي
+  accentStrong: "#953B49",
+  themeIcon: "#B5495B",
+
+  text: "#2B1620",
+  muted: "#8A6B6F",
+  mutedAlt: "#9C8084",
+
+  teal: "#C9A227",           // ← الذهبي صار ثانوي بس هون كمان
+
+  flowDefaultBg: "rgba(43, 22, 32, 0.025)",
+  flowDecisionBg: "rgba(181, 73, 91, 0.07)",
+  flowOutcomeBg: "rgba(201, 162, 39, 0.07)",
+  flowPillBg: "rgba(201, 162, 39, 0.10)",
+
+  bgScrolled: "rgba(255, 255, 255, 0.95)",
+
+  gridCardBg: "rgba(255, 255, 255, 0.8)",
+  gridCardBgHover: "rgba(255, 255, 255, 0.97)",
+  gridPanelBg: "rgba(255, 255, 255, 0.55)",
+  gridCenterBg: "rgba(255, 255, 255, 0.95)",
+  gridIdBg: "rgba(43, 22, 32, 0.04)",
+  gridGlow: "rgba(181, 73, 91, 0.10)",
+  gridCardShadow: "rgba(181, 73, 91, 0.22)",
+  gridCenterShadow: "rgba(181, 73, 91, 0.16)",
+  gridCenterShadowHover: "rgba(181, 73, 91, 0.28)",
+
+  moduleCardBg: "rgba(43, 22, 32, 0.025)",
+  moduleCardShadow: "rgba(43, 22, 32, 0.12)",
+  moduleGlow: "rgba(181, 73, 91, 0.07)",
+
+  practiceIconBg: "rgba(43, 22, 32, 0.025)",
+  practiceCardShadow: "rgba(43, 22, 32, 0.12)",
+
+  sectorIconBg: "rgba(181, 73, 91, 0.07)",
+  sectorCardShadow: "rgba(43, 22, 32, 0.12)",
+
+  accentGlow: "rgba(181, 73, 91, 0.08)",
+  accentGlowStrong: "rgba(181, 73, 91, 0.14)",
+  accentHover: "rgba(181, 73, 91, 0.08)",
+  accentActive: "rgba(181, 73, 91, 0.05)",
+  accentButtonGlow: "rgba(181, 73, 91, 0.25)",
+  accentButtonGlowHover: "rgba(181, 73, 91, 0.4)",
+  accentShadow: "rgba(181, 73, 91, 0.16)",
+
+  tealGlow: "rgba(201, 162, 39, 0.07)",
+  surfaceOverlay: "rgba(43, 22, 32, 0.025)",
+  surfaceTranslucent: "rgba(255, 255, 255, 0.8)",
+  surfaceGlass: "rgba(255, 255, 255, 0.75)",
+},
+
+
 };
 
+// نفس fontTokens تضل مشتركة — بس بنضيف خط مزخرف اختياري للوغو نفسه بس
 export const fontTokens = {
   mono: "'IBM Plex Mono', 'Courier New', monospace",
   sans: '"IBM Plex Sans", "IBM Plex Sans Arabic", sans-serif',
+  script: "'Playfair Display', 'Amiri', serif", // خط فخم للعناوين الكبيرة بقطاع التجميل فقط
 };

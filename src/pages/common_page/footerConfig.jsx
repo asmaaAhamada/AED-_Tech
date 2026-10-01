@@ -1,5 +1,7 @@
 export const getFooterConfig = (t) => {
-  const columns = t("footer.columns", { returnObjects: true });
+  const columns = t("footer.columns", {
+    returnObjects: true,
+  });
 
   return {
     logoText: t("footer.logoText"),
@@ -7,11 +9,23 @@ export const getFooterConfig = (t) => {
     brandDescription: t("footer.brandDescription"),
     copyright: t("footer.copyright"),
 
-    whatsappNumber: "+963705672",
+    social: {
+      instagram: {
+        label: "Instagram",
+        url: "https://www.instagram.com/",
+      },
+
+      whatsapp: {
+        label: "WhatsApp",
+        number: "+963705672",
+      },
+    },
 
     linksColumns: columns.map((col) => ({
       title: col.title,
-      links: col.links.map((label) => ({ label })),
+      links: col.links.map((label) => ({
+        label,
+      })),
     })),
   };
 };
