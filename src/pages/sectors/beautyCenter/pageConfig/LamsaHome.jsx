@@ -18,7 +18,7 @@ import { getLamsaContactConfig } from "./lamsaContactConfig";
 import FooterSection from "../../../common_page/FooterSection";
 import getLamsaFooterConfig from "./lamsaFooterConfig";
 export default function LamsaHome() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const currentConfig = getLamsaHomeConfig(t);
   const currentGridConfig = getLamsaGridConfig(t);
   const currentModulesConfig = getLamsaModulesConfig(t);

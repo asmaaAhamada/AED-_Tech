@@ -13,11 +13,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../../../../store/slices/themeSlice";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-
-export default function LamsaNavbar({ config }) {
+import lamsaNavConfig from "./lamsaNavConfig";
+export default function LamsaNavbar({ config: propConfig }) {
+    const theme = useTheme();
   const { t, i18n } = useTranslation();
-  const theme = useTheme();
-  const dispatch = useDispatch();
+  const config = lamsaNavConfig(t, theme);
+ const dispatch = useDispatch();
   const mode = useSelector((state) => state.theme.mode);
 
   const fontMono = theme.typography.fontFamily;
@@ -36,6 +37,7 @@ export default function LamsaNavbar({ config }) {
   const isRtl = i18n.language === "ar";
   const { brandName, brandTag, logo, navItems, cta, locales } = config;
   const displayNavItems = isRtl ? [...navItems].reverse() : navItems;
+const HOME_PATH = navItems[0].path; 
 
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -67,7 +69,7 @@ export default function LamsaNavbar({ config }) {
         }}
       >
         <Toolbar sx={{ minHeight: 72, px: { xs: 2, md: 4 }, direction: "ltr" }}>
-          <Box component={NavLink} to="/sectors/beauty-center" sx={{ display: "flex", alignItems: "center", gap: 1.5, textDecoration: "none", mr: "auto" }}>
+          <Box component={NavLink} to={HOME_PATH}  sx={{ display: "flex", alignItems: "center", gap: 1.5, textDecoration: "none", mr: "auto" }}>
             <Box
               sx={{
                 width: { xs: 48, md: 54 },
@@ -130,7 +132,7 @@ export default function LamsaNavbar({ config }) {
           {isDesktop && (
             <Box sx={{ display: "flex", alignItems: "center", gap: 3.5, mx: 3 }}>
               {displayNavItems.map((item) => (
-                <NavLink key={item.path} to={item.path} end={item.path === "/sectors/beauty-center"} style={{ textDecoration: "none" }}>
+                <NavLink key={item.path} to={item.path} end={item.path === HOME_PATH} style={{ textDecoration: "none" }}>
                   {({ isActive }) => (
                     <Box
                       sx={{
@@ -230,7 +232,7 @@ export default function LamsaNavbar({ config }) {
               key={item.path}
               component={NavLink}
               to={item.path}
-              end={item.path === "/sectors/beauty-center"}
+              end={item.path === HOME_PATH}
               sx={{
                 color: colors.text, py: 1.5,
                 "&.active": {
